@@ -44,7 +44,7 @@
     <div class="container">
         <div class="input-container">
             <section class="input-section" placeholder="Shift">
-                <select id="shift-type">
+                <div class="shift-title">Shift type:</div><select id="shift-type">
                     <option value="days">DAYS</option>
                     <option value="afts">AFTERNOONS</option>
                     <option value="nights">NIGHTS</option>
@@ -53,11 +53,11 @@
                 <input class="time" id="date" type="text" placeholder="Date"><input class="time" id="inTime" type="text" placeholder="In Time"><input class="time" id="outTime" type="text" placeholder="Out Time">
                 <textarea id="text" type="text" placeholder="Message"></textarea><br/>
                 <button id="start">Start</button><button id="finish">Finish</button><button id="new">Enter New Time</button><br/>
-                <div id="results"></div>
                 <hr/>
             </section>
         </div>
         <section class="display-section" id="display">
+            <div id="results"></div>
         </section>
     </div>
     <script src="app.js"></script>
