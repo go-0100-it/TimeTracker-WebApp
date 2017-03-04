@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- comment to test git sync x2 -->
+
+<head>
+    <meta charset="uft-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Time Tracker App
+    </title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="css/dropdown.css">
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBpHxEFisGuyYTf-X3GNUR-eW3KSCYlfOY",
+            authDomain: "time-tracker-b63cd.firebaseapp.com",
+            databaseURL: "https://time-tracker-b63cd.firebaseio.com",
+            storageBucket: "time-tracker-b63cd.appspot.com",
+            messagingSenderId: "22337040109"
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div style="display: inline-block;">
+            <h4 class="header-h1">Time Tracker</h4>
+        </div>
+        <div class="dropdown">
+            <div class="dropbtn"><span class="glyphicon glyphicon-option-vertical"></span>
+            </div>
+            <div class="dropdown-content">
+                <a class="dropdown-content-link" href="#">Manage Times</a>
+                <a class="dropdown-content-link" href="#">Settings</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="input-container">
+            <section class="input-section" placeholder="Shift">
+                <select id="shift-type">
+                    <option value="days">DAYS</option>
+                    <option value="afts">AFTERNOONS</option>
+                    <option value="nights">NIGHTS</option>
+                    <option value="ww">WEEKEND</option>
+                </select>
+                <input class="time" id="date" type="text" placeholder="Date"><input class="time" id="inTime" type="text" placeholder="In Time"><input class="time" id="outTime" type="text" placeholder="Out Time">
+                <textarea id="text" type="text" placeholder="Message"></textarea><br/>
+                <button id="start">Start</button><button id="finish">Finish</button><button id="new">Enter New Time</button><br/>
+                <div id="results"></div>
+                <hr/>
+            </section>
+        </div>
+        <section class="display-section" id="display">
+        </section>
+    </div>
+    <script src="app.js"></script>
+
+</body>
+
+</html>

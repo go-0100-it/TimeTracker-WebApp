@@ -1,0 +1,17 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata></metadata>
+<defs>
+<font id="glyphicons_halflingsregular" horiz-adv-x="1200" >
+<font-face units-per-em="1200" ascent="960" descent="-240" />
+<missing-glyph horiz-adv-x="500" />
+<glyph horiz-adv-x="0" />
+<glyph horiz-adv-x="400" />
+<glyph unicode=" " />
+
+<glyph unicode="&#xe235;" d="M550 1100q62 0 106 -44t44 -106t-44 -106t-106 -44t-106 44t-44 106t44 106t106 44zM550 700q62 0 106 -44t44 -106t-44 -106t-106 -44t-106 44t-44 106t44 106t106 44zM550 300q62 0 106 -44t44 -106t-44 -106t-106 -44t-106 44t-44 106t44 106t106 44z" />
+
+
+</font>
+</defs></svg> 
