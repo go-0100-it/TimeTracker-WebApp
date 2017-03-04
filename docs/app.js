@@ -12,6 +12,8 @@ var newBtn = document.getElementById('new');
 var inTimeInput = document.getElementById('inTime');
 var outTimeInput = document.getElementById('outTime');
 var dateInput = document.getElementById('date');
+var optionsMenuBtn = document.getElementById('options-menu-btn');
+var dropdown = document.getElementsByClassName('dropdown-content');
 var appData;
 var currentSessionKey;
 var tracking;
@@ -49,6 +51,11 @@ newBtn.addEventListener('click', function() {
     newBtn.style.display = "none";
     startBtn.style.display = finishBtn.style.display = "inline-block";
     finishBtn.disabled = true;
+});
+
+optionsMenuBtn.addEventListener('click', function() {
+    dropdown[0].classList.toggle('dropdown-hide');
+    dropdown[0].classList.toggle('dropdown-show');
 });
 
 var postStartTime = function(newdate) {
