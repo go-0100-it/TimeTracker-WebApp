@@ -1,0 +1,65 @@
+.display-container {
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px 0;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: inline-block;
+}
+
+.times-list-item {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.date-span,
+.in-time,
+.out-time,
+.total-hrs {
+    display: inline-block;
+    width: 24%;
+    font-size: 1.1em;
+    margin: 5px 0;
+    border-radius: 8px;
+    background: #ebe7e7;
+    padding: 10px 0;
+    cursor: pointer;
+    box-shadow: 0 1px 5px #111111;
+    text-align: center;
+}
+
+.date-span {
+    font-weight: 800;
+}
+
+.in-time {
+    background: #b5eeb5;
+}
+
+.out-time {
+    background: #f39c9c;
+}
+
+.highlight {
+    font-weight: 900;
+}
+
+@media only screen and (max-width: 1200px) {
+    .date-span {
+        width: 100%;
+        margin-top: 15px;
+        font-size: 1.1em;
+    }
+    .in-time,
+    .out-time,
+    .total-hrs {
+        width: 33.33%;
+        font-size: 1em;
+        margin: 0;
+    }
+}

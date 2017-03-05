@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="css/app.css">
     <link rel="stylesheet" type="text/css" href="css/navbar.css">
     <link rel="stylesheet" type="text/css" href="css/dropdown.css">
+    <link rel="stylesheet" type="text/css" href="css/times-detail-view.css">
     <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
     <script>
@@ -36,15 +37,17 @@
             <div id="options-menu-btn" class="dropbtn"><span class="glyphicon glyphicon-option-vertical"></span>
             </div>
             <div class="dropdown-content dropdown-hide">
-                <a class="dropdown-content-link" href="#">Manage Times</a>
-                <a class="dropdown-content-link" href="#">Settings</a>
+                <a id="manage-times" class="dropdown-content-link">Manage Times</a>
+                <a id="show-times" class="dropdown-content-link">Show Times</a>
+                <a id="settings" class="dropdown-content-link">Settings</a>
             </div>
         </div>
     </nav>
     <div class="container">
-        <div class="input-container">
-            <section class="input-section" placeholder="Shift">
-                <div class="shift-title">Shift type:</div><select id="shift-type">
+        <section class="input-container">
+            <div class="input-section">
+                <div class="shift-title">Shift type:</div>
+                <select id="shift-type">
                     <option value="days">DAYS</option>
                     <option value="afts">AFTERNOONS</option>
                     <option value="nights">NIGHTS</option>
@@ -54,12 +57,15 @@
                 <textarea id="text" type="text" placeholder="Message"></textarea><br/>
                 <button id="start">Start</button><button id="finish">Finish</button><button id="new">Enter New Time</button><br/>
                 <hr/>
-            </section>
-        </div>
-        <section class="display-section" id="display">
-            <div id="results"></div>
+            </div>
         </section>
+        <section class="display-container hide" id="display">
+            <h1 class="sub-title">Times Detail List</h1>
+            <div id="results"></div>
     </div>
+    </section>
+    </div>
+    <script src="firebase_helper.js"></script>
     <script src="app.js"></script>
 
 </body>

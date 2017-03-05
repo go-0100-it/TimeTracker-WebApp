@@ -1,9 +1,3 @@
-var rootRef = firebase.database().ref();
-var appDataRef = firebase.database().ref("AppData");
-var appStateRef = firebase.database().ref("AppData/app_state");
-var appLastStateRef = firebase.database().ref("AppData/last_state");
-var times = firebase.database().ref("times");
-var other = firebase.database().ref("other");
 var shiftInput = document.getElementById('shift-type');
 var messageInput = document.getElementById('text');
 var startBtn = document.getElementById('start');
@@ -14,20 +8,8 @@ var outTimeInput = document.getElementById('outTime');
 var dateInput = document.getElementById('date');
 var optionsMenuBtn = document.getElementById('options-menu-btn');
 var dropdown = document.getElementsByClassName('dropdown-content');
-var appData;
-var currentSessionKey;
-var tracking;
+var showTimes = document.getElementById('show-times');
 
-var getAppState = function() {
-    return appDataRef.once('value').then(function(snapshot) {
-        appData = snapshot.val();
-    }).then(function() {
-        if (appData && appData.app_state.tracking) {
-            currentSessionKey = appData.last_state.inTimeMS;
-            updateUItracking(new Date(appData.last_state.date));
-        }
-    });
-};
 finishBtn.disabled = true;
 
 getAppState();
@@ -45,100 +27,42 @@ finishBtn.addEventListener('click', function() {
 });
 
 newBtn.addEventListener('click', function() {
+    resetInputView();
+});
+
+optionsMenuBtn.addEventListener('click', function() {
+    toggleOptionsMenu();
+});
+
+showTimes.addEventListener('click', function() {
+    toggleOptionsMenu();
+    if (this.textContent === 'Show Times') {
+        toggleMenuItemText('show-times', 'Hide Times');
+        getTimesDetail();
+    } else {
+        toggleMenuItemText('show-times', 'Show Times');
+        removeElement('removable-container');
+        show_hideElement('display');
+    }
+});
+
+var removeElement = function(el) {
+    var elementToRemove = document.getElementById(el);
+    elementToRemove.parentNode.removeChild(elementToRemove);
+};
+
+var toggleOptionsMenu = function() {
+    dropdown[0].classList.toggle('dropdown-hide');
+    dropdown[0].classList.toggle('dropdown-show');
+};
+
+var resetInputView = function() {
     messageInput.value = inTimeInput.value = outTimeInput.value = dateInput.value = "";
     shiftInput.value = "DAYS";
     shiftInput.disabled = inTimeInput.disabled = outTimeInput.disabled = startBtn.disabled = dateInput.disabled = messageInput.disabled = false;
     newBtn.style.display = "none";
     startBtn.style.display = finishBtn.style.display = "inline-block";
     finishBtn.disabled = true;
-});
-
-optionsMenuBtn.addEventListener('click', function() {
-    dropdown[0].classList.toggle('dropdown-hide');
-    dropdown[0].classList.toggle('dropdown-show');
-});
-
-var postStartTime = function(newdate) {
-    var time = newdate.getTime();
-    var inTime = newdate.toLocaleTimeString();
-    var date = newdate.toDateString();
-    var shift = shiftInput.value;
-    var msgText = messageInput.value;
-    currentSessionKey = times.push().key = time;
-
-    var timesData = {
-        inTime: inTime,
-        inTimeMS: time,
-        outTime: "00:00:00 xx",
-        outTimeMS: "0",
-        date: date
-    };
-
-    var otherData = {
-        shift: shift,
-        date: newdate,
-        comment: msgText
-    };
-
-    var lastState = {
-        inTime: inTime,
-        inTimeMS: time,
-        outTime: "00:00:00 xx",
-        outTimeMS: "0",
-        date: newdate
-    };
-
-    var updates = {};
-
-    // Updating 
-    updates['/times/' + currentSessionKey] = timesData;
-    updates['/other/' + currentSessionKey] = otherData;
-
-    // Also updating AppData with current data and current state
-    updates['AppData/app_state/tracking'] = true;
-    updates['AppData/last_state'] = lastState;
-
-    return firebase.database().ref().update(updates);
-};
-
-var postFinishTime = function(date) {
-    var msgText = messageInput.value;
-    var outTime = outTimeInput.value = date.toLocaleTimeString();
-    var time = date.getTime();
-
-    var lastState = {
-        outTime: outTime,
-        outTimeMS: time,
-    };
-
-    var updates = {};
-
-
-    updates['/times/' + currentSessionKey + "/outTime"] = outTime;
-    updates['/times/' + currentSessionKey + "/outTimeMS"] = time;
-    updates['/other/' + currentSessionKey + "/comment"] = msgText;
-
-    // Also updating AppData with current data and current state
-    updates['AppData/app_state/tracking'] = false;
-    updates['AppData/last_state/outTime'] = outTime;
-    updates['AppData/last_state/outTimeMS'] = time;
-
-    return firebase.database().ref().update(updates);
-
-};
-
-var beginListening = function() {
-    times.on('value', function(snapshot) {
-        allTimes = snapshot.val();
-        //updateUI(allTimes);
-    });
-    appStateRef.on('value', function(snapshot) {
-        lastState = snapshot.val();
-    });
-};
-
-var stopListening = function() {
-    times.off('value');
 };
 
 beginListening();
@@ -155,6 +79,60 @@ var updateUIidol = function(date) {
     startBtn.style.display = finishBtn.style.display = "none";
     outTimeInput.disabled = messageInput.disabled = true;
     outTime.value = date.toLocaleTimeString();
+};
+
+var createTimesDetail = function(data) {
+
+    var results = document.getElementById('results');
+    var removableDiv = document.createElement('div');
+    removableDiv.id = ('removable-container');
+
+    for (var prop in data) {
+
+        var inTime = data[prop].inTime;
+        var outTime = data[prop].outTime;
+
+        var div = document.createElement('div');
+        div.classList.add("times-list-item");
+        div.id = (prop);
+        var dateSpan = document.createElement('span');
+        dateSpan.classList.add('date-span');
+        dateSpan.textContent = data[prop].date;
+        div.appendChild(dateSpan);
+        var inSpan = document.createElement('span');
+        inSpan.classList.add('in-time');
+        inSpan.textContent = inTime;
+        div.appendChild(inSpan);
+        var outSpan = document.createElement('span');
+        outSpan.classList.add('out-time');
+        outSpan.textContent = outTime;
+        div.appendChild(outSpan);
+        var totalHrs = document.createElement('span');
+        totalHrs.classList.add('total-hrs');
+        totalHrs.textContent = getTotalHrs(data[prop].inTimeMS, data[prop].outTimeMS);
+        div.appendChild(totalHrs);
+        removableDiv.appendChild(div);
+    };
+    results.appendChild(removableDiv);
+    show_hideElement('display');
+}
+
+var show_hideElement = function(el) {
+    document.getElementById(el).classList.toggle('hide');
+};
+
+var toggleMenuItemText = function(el, optionText) {
+    document.getElementById(el).textContent = optionText;
+};
+
+var getTotalHrs = function(t1, t2) {
+    var reduction = 360000;
+    var msec = t2 - t1 - (2 * reduction);
+    var totalHrs = Math.floor((msec / (60 * 60 * 1000)) * 10) / 10;
+    if (totalHrs < 0) {
+        return 0;
+    }
+    return totalHrs;
 };
 
 var mobile = {
@@ -177,5 +155,4 @@ var mobile = {
         return (mobile.Android() || mobile.BlackBerry() || mobile.iOS() || mobile.Opera() || mobile.Windows());
     }
 };
-
 messageInput.value = mobile.any();
