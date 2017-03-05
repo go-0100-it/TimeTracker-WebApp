@@ -14,7 +14,7 @@ var getAppState = function() {
     }).then(function() {
         if (appData && appData.app_state.tracking) {
             currentSessionKey = appData.last_state.inTimeMS;
-            updateUItracking(new Date(appData.last_state.date));
+            updateUItracking(new Date(appData.last_state.fullDate));
         }
     });
 };
@@ -40,22 +40,19 @@ var postStartTime = function(newdate) {
     var timesData = {
         inTime: inTime,
         inTimeMS: time,
-        outTime: "00:00:00 xx",
-        outTimeMS: "0",
-        date: date
-    };
-
-    var otherData = {
+        outTime: "-",
+        outTimeMS: "-",
+        date: date,
         shift: shift,
-        date: newdate,
+        fullDate: newdate,
         comment: msgText
     };
 
     var lastState = {
         inTime: inTime,
         inTimeMS: time,
-        outTime: "00:00:00 xx",
-        outTimeMS: "0",
+        outTime: "-",
+        outTimeMS: "-",
         date: newdate
     };
 
@@ -63,7 +60,6 @@ var postStartTime = function(newdate) {
 
     // Updating 
     updates['/times/' + currentSessionKey] = timesData;
-    updates['/other/' + currentSessionKey] = otherData;
 
     // Also updating AppData with current data and current state
     updates['AppData/app_state/tracking'] = true;
@@ -87,7 +83,7 @@ var postFinishTime = function(date) {
 
     updates['/times/' + currentSessionKey + "/outTime"] = outTime;
     updates['/times/' + currentSessionKey + "/outTimeMS"] = time;
-    updates['/other/' + currentSessionKey + "/comment"] = msgText;
+    updates['/times/' + currentSessionKey + "/comment"] = msgText;
 
     // Also updating AppData with current data and current state
     updates['AppData/app_state/tracking'] = false;

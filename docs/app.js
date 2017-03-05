@@ -95,6 +95,10 @@ var createTimesDetail = function(data) {
         var div = document.createElement('div');
         div.classList.add("times-list-item");
         div.id = (prop);
+        var shiftSpan = document.createElement('span');
+        shiftSpan.classList.add('shift-span');
+        shiftSpan.textContent = data[prop].shift.charAt(0).toUpperCase();
+        div.appendChild(shiftSpan);
         var dateSpan = document.createElement('span');
         dateSpan.classList.add('date-span');
         dateSpan.textContent = data[prop].date;
@@ -109,7 +113,7 @@ var createTimesDetail = function(data) {
         div.appendChild(outSpan);
         var totalHrs = document.createElement('span');
         totalHrs.classList.add('total-hrs');
-        totalHrs.textContent = getTotalHrs(data[prop].inTimeMS, data[prop].outTimeMS);
+        totalHrs.textContent = getTotalHrs(data[prop].inTimeMS, data[prop].outTimeMS) + "hrs";
         div.appendChild(totalHrs);
         removableDiv.appendChild(div);
     };

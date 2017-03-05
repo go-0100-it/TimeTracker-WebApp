@@ -22,7 +22,20 @@
 .out-time,
 .total-hrs {
     display: inline-block;
-    width: 24%;
+    width: 22%;
+    font-size: 1.1em;
+    margin: 5px 0;
+    border-radius: 8px;
+    background: #ebe7e7;
+    padding: 10px 0;
+    cursor: pointer;
+    box-shadow: 0 1px 5px #111111;
+    text-align: center;
+}
+
+.shift-span {
+    display: inline-block;
+    width: 8%;
     font-size: 1.1em;
     margin: 5px 0;
     border-radius: 8px;
@@ -51,7 +64,7 @@
 
 @media only screen and (max-width: 1200px) {
     .date-span {
-        width: 100%;
+        width: 92%;
         margin-top: 15px;
         font-size: 1.1em;
     }
