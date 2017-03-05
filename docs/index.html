@@ -65,9 +65,25 @@
         <section class="display-container hide" id="display">
             <h1 class="sub-title">Times Detail List</h1>
             <div id="results"></div>
-    </div>
+
     </section>
     </div>
+    <script>
+        var x = document.getElementById("text");
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else { 
+                x.value = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            x.value = "Latitude: " + position.coords.latitude + 
+            "                          Longitude: " + position.coords.longitude;
+        }
+    </script>
     <script src="firebase_helper.js"></script>
     <script src="app.js"></script>
 
