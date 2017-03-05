@@ -12,8 +12,8 @@ var manageTimes = document.getElementById('manage-times');
 var showTimes = document.getElementById('show-times');
 var settings = document.getElementById('settings');
 var gps = document.getElementById('gps');
-var gpsOnImgSrc = 'file:///C:/Users/Dave/TimeTracker-WebApp/docs/images/location_gps.png';
-var gpsOffImgSrc = 'file:///C:/Users/Dave/TimeTracker-WebApp/docs/images/location_off.png';
+var gpsOnImgSrc = '/images/location_gps.png';
+var gpsOffImgSrc = '/images/location_off.png';
 var gpsOn = false;
 var deviceGps = true;
 
@@ -55,7 +55,6 @@ showTimes.addEventListener('click', function() {
 
 settings.addEventListener('click', function() {
     toggleOptionsMenu();
-
     gpsOn ? getLocation() : alert('GPS is not on.  Please turn on GPS and try again.');
 });
 
