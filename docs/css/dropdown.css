@@ -46,6 +46,10 @@
     display: block;
 }
 
+.dropdown-content-link:hover {
+    cursor: pointer;
+}
+
 
 /* Change color of dropdown links on hover */
 
