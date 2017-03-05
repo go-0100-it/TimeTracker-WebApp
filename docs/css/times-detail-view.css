@@ -22,9 +22,9 @@
 .out-time,
 .total-hrs {
     display: inline-block;
-    width: 22%;
+    width: 20.5%;
     font-size: 1.1em;
-    margin: 5px 0;
+    margin: 5px 0.5%;
     border-radius: 8px;
     background: #ebe7e7;
     padding: 10px 0;
@@ -37,7 +37,7 @@
     display: inline-block;
     width: 8%;
     font-size: 1.1em;
-    margin: 5px 0;
+    margin: 5px 0.5% 5px 0;
     border-radius: 8px;
     background: #ebe7e7;
     padding: 10px 0;
@@ -64,15 +64,43 @@
 
 @media only screen and (max-width: 1200px) {
     .date-span {
-        width: 92%;
+        width: 89%;
         margin-top: 15px;
         font-size: 1.1em;
     }
+    .shift-span {
+        width: 9%;
+    }
     .in-time,
-    .out-time,
+    .out-time {
+        width: 32.33%;
+        font-size: 1em;
+        margin: 0 1% 0 0;
+    }
+
     .total-hrs {
-        width: 33.33%;
+        width: 32.33%;
         font-size: 1em;
         margin: 0;
     }
+}
+
+@media only screen and (max-width: 500px) {
+
+    .date-span {
+        width: 85%;
+        margin-top: 15px;
+        font-size: 1em;
+    }
+
+    .shift-span {
+        width: 15%;
+        font-size: 1em;
+    }
+
+    .in-time,
+    .out-time {
+        font-size: 0.9em;
+    }
+
 }
