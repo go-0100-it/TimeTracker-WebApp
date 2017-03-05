@@ -133,10 +133,12 @@ var getTotalHrs = function(t1, t2) {
     var reduction = 360000;
     var msec = t2 - t1 - (2 * reduction);
     var totalHrs = Math.floor((msec / (60 * 60 * 1000)) * 10) / 10;
+    console.log(totalHrs === NaN);
     if (totalHrs < 0 || totalHrs === NaN)) {
         return 0;
+    }else{
+        return totalHrs;
     }
-    return totalHrs;
 };
 
 var mobile = {
