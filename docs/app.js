@@ -91,13 +91,14 @@ var createTimesDetail = function(data) {
 
         var inTime = data[prop].inTime;
         var outTime = data[prop].outTime;
+        var shift = data[prop].shift;
 
         var div = document.createElement('div');
         div.classList.add("times-list-item");
         div.id = (prop);
         var shiftSpan = document.createElement('span');
         shiftSpan.classList.add('shift-span');
-        shiftSpan.textContent = data[prop].shift.charAt(0).toUpperCase();
+        shiftSpan.textContent = shift.charAt(0).toUpperCase();
         div.appendChild(shiftSpan);
         var dateSpan = document.createElement('span');
         dateSpan.classList.add('date-span');
