@@ -11,6 +11,11 @@ var dropdown = document.getElementsByClassName('dropdown-content');
 var manageTimes = document.getElementById('manage-times');
 var showTimes = document.getElementById('show-times');
 var settings = document.getElementById('settings');
+var gps = document.getElementById('gps');
+var gpsOnImgSrc = 'file:///C:/Users/Dave/TimeTracker-WebApp/docs/images/location_gps.png';
+var gpsOffImgSrc = 'file:///C:/Users/Dave/TimeTracker-WebApp/docs/images/location_off.png';
+var gpsOn = false;
+var deviceGps = true;
 
 finishBtn.disabled = true;
 
@@ -48,14 +53,34 @@ showTimes.addEventListener('click', function() {
     }
 });
 
-settings.addEventListener('click', function(){
+settings.addEventListener('click', function() {
     toggleOptionsMenu();
-    getLocation();
+
+    gpsOn ? getLocation() : alert('GPS is not on.  Please turn on GPS and try again.');
 });
 
-manageTimes.addEventListener('click', function(){
+manageTimes.addEventListener('click', function() {
     toggleOptionsMenu();
 });
+
+gps.addEventListener('click', function() {
+    toggleGps();
+});
+
+var toggleGps = function() {
+    deviceGps ? (gpsOn ? turnOffGps() : turnOnGps()) : alert("Either your device does not support this service or the device's GPS is Off.");
+    updateGpsStatus();
+};
+
+var turnOffGps = function() {
+    gps.src = gpsOffImgSrc;
+    gpsOn = false;
+};
+
+var turnOnGps = function() {
+    gps.src = gpsOnImgSrc;
+    gpsOn = true;
+};
 
 var removeElement = function(el) {
     var elementToRemove = document.getElementById(el);
@@ -78,11 +103,17 @@ var resetInputView = function() {
 
 beginListening();
 
-var updateUItracking = function(date) {
-    shiftInput.disabled = inTimeInput.disabled = startBtn.disabled = dateInput.disabled = true;
-    finishBtn.disabled = false;
-    inTimeInput.value = date.toLocaleTimeString();
-    dateInput.value = date.toDateString();
+var updateUIlastState = function(data) {
+    if (data) {
+        if (data.app_state.tracking) {
+            currentSessionKey = appData.last_state.inTimeMS;
+            shiftInput.disabled = inTimeInput.disabled = startBtn.disabled = dateInput.disabled = true;
+            finishBtn.disabled = false;
+            inTimeInput.value = date.toLocaleTimeString();
+            dateInput.value = date.toDateString();
+        }
+        data.last_state.gps ? turnOnGps() : turnOffGps();
+    }
 };
 
 var updateUIidol = function(date) {

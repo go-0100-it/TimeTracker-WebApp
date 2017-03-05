@@ -1,7 +1,7 @@
 var rootRef = firebase.database().ref();
 var appDataRef = firebase.database().ref("AppData");
 var appStateRef = firebase.database().ref("AppData/app_state");
-var appLastStateRef = firebase.database().ref("AppData/last_state");
+var appLastStateRef = firebase.database().ref("AppData/last_state/");
 var times = firebase.database().ref("times");
 var other = firebase.database().ref("other");
 var appData;
@@ -10,13 +10,8 @@ var tracking;
 
 var getAppState = function() {
     return appDataRef.once('value').then(function(snapshot) {
-        appData = snapshot.val();
-    }).then(function() {
-        if (appData && appData.app_state.tracking) {
-            currentSessionKey = appData.last_state.inTimeMS;
-            updateUItracking(new Date(appData.last_state.fullDate));
-        }
-    });
+        updateUIlastState(snapshot.val());
+    })
 };
 
 var getTimesDetail = function() {
@@ -53,7 +48,8 @@ var postStartTime = function(newdate) {
         inTimeMS: time,
         outTime: "-",
         outTimeMS: "-",
-        date: newdate
+        date: newdate,
+        gps: gpsOn
     };
 
     var updates = {};
@@ -92,6 +88,12 @@ var postFinishTime = function(date) {
 
     return firebase.database().ref().update(updates);
 
+};
+
+var updateGpsStatus = function() {
+    var updates = {};
+    updates['AppData/last_state/gps'] = gpsOn;
+    return firebase.database().ref().update(updates);
 };
 
 var beginListening = function() {

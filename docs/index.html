@@ -31,7 +31,7 @@
 <body>
     <nav class="nav-bar">
         <div class="gps-icon-container">
-            <img src="images/location_gps.png" class="gps-icon" alt="GPS icon">
+            <img id="gps" src="images/location_off.png" class="gps-icon" alt="GPS icon">
         </div>
         <div style="display: inline-block;">
             <h4 class="header-h1">Time Tracker</h4>
@@ -66,7 +66,7 @@
             <h1 class="sub-title">Times Detail List</h1>
             <div id="results"></div>
 
-    </section>
+        </section>
     </div>
     <script>
         var x = document.getElementById("text");
@@ -74,14 +74,14 @@
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
-            } else { 
+            } else {
                 x.value = "Geolocation is not supported by this browser.";
             }
         }
 
         function showPosition(position) {
-            x.value = "Latitude: " + position.coords.latitude + 
-            "                          Longitude: " + position.coords.longitude;
+            x.value = "Latitude: " + position.coords.latitude +
+                "                          Longitude: " + position.coords.longitude;
         }
     </script>
     <script src="firebase_helper.js"></script>
