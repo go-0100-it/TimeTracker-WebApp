@@ -12,8 +12,8 @@ var manageTimes = document.getElementById('manage-times');
 var showTimes = document.getElementById('show-times');
 var settings = document.getElementById('settings');
 var gps = document.getElementById('gps');
-var gpsOnImgSrc = '/images/location_gps.png';
-var gpsOffImgSrc = '/images/location_off.png';
+var gpsOnImgSrc = '/TimeTracker-WebApp/docs/images/location_gps.png';
+var gpsOffImgSrc = '/TimeTracker-WebApp/docs/images/location_off.png';
 var gpsOn = false;
 var deviceGps = true;
 
