@@ -129,16 +129,12 @@ var toggleMenuItemText = function(el, optionText) {
     document.getElementById(el).textContent = optionText;
 };
 
-var getTotalHrs = function(t1, t2) {
-    var reduction = 360000;
-    var msec = t2 - t1 - (2 * reduction);
+var getTotalHrs = function(shift, t1, t2, date) {
+    t2 = isNaN(t2) ? (new Date()).getTime() : t2;
+    var reduction = (shift === "ww" && (new Date(date).getDay()) === 6) ? 1920000 : 720000;
+    var msec = t2 - t1 - reduction;
     var totalHrs = Math.floor((msec / (60 * 60 * 1000)) * 10) / 10;
-    console.log(totalHrs === NaN);
-    if (totalHrs < 0 || totalHrs === NaN) {
-        return 0;
-    }else{
-        return totalHrs;
-    }
+    return (totalHrs < 0) ? 0 : totalHrs;
 };
 
 var mobile = {
