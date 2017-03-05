@@ -8,7 +8,9 @@ var outTimeInput = document.getElementById('outTime');
 var dateInput = document.getElementById('date');
 var optionsMenuBtn = document.getElementById('options-menu-btn');
 var dropdown = document.getElementsByClassName('dropdown-content');
+var manageTimes = document.getElementById('manage-times');
 var showTimes = document.getElementById('show-times');
+var settings = document.getElementById('settings');
 
 finishBtn.disabled = true;
 
@@ -44,6 +46,15 @@ showTimes.addEventListener('click', function() {
         removeElement('removable-container');
         show_hideElement('display');
     }
+});
+
+settings.addEventListener('click', function(){
+    toggleOptionsMenu();
+    getLocation();
+});
+
+manageTimes.addEventListener('click', function(){
+    toggleOptionsMenu();
 });
 
 var removeElement = function(el) {
