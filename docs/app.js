@@ -111,6 +111,7 @@ var updateUIlastState = function(data) {
             finishBtn.disabled = false;
             inTimeInput.value = date.toLocaleTimeString();
             dateInput.value = date.toDateString();
+            shiftInput.value = data.last_state.shift;
         }
         data.last_state.gps ? turnOnGps() : turnOffGps();
     }
