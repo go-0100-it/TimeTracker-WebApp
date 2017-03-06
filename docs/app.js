@@ -126,9 +126,15 @@ var updateUIidol = function(date) {
 
 var createTimesDetail = function(data) {
 
+    var display = document.getElementById('display');
     var results = document.getElementById('results');
     var removableDiv = document.createElement('div');
     removableDiv.id = ('removable-container');
+
+    var title = document.createElement('h1');
+    title.classList.add('sub-title');
+    title.textContent = "Times Detail List";
+    display.appendChild(title);
 
     for (var prop in data) {
 
