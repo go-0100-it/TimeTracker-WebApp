@@ -134,7 +134,7 @@ var createTimesDetail = function(data) {
     var title = document.createElement('h1');
     title.classList.add('sub-title');
     title.textContent = "Times Detail List";
-    display.prependChild(title);
+    display.insertBefore(title, display.firstChild);
 
     for (var prop in data) {
 
