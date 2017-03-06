@@ -105,11 +105,11 @@ beginListening();
 var updateUIlastState = function(data) {
     if (data) {
         if (data.app_state.tracking) {
-            currentSessionKey = appData.last_state.inTimeMS;
+            currentSessionKey = data.last_state.inTimeMS;
             shiftInput.disabled = inTimeInput.disabled = startBtn.disabled = dateInput.disabled = true;
             finishBtn.disabled = false;
-            inTimeInput.value = date.toLocaleTimeString();
-            dateInput.value = date.toDateString();
+            inTimeInput.value = data.fullDate.toLocaleTimeString();
+            dateInput.value = data.fullDate.toDateString();
         }
         data.last_state.gps ? turnOnGps() : turnOffGps();
     }
