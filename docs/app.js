@@ -103,7 +103,7 @@ var resetInputView = function() {
 beginListening();
 
 var updateUIlastState = function(data) {
-    var date = data.last_state.fullDate;
+    var date = new Date(data.last_state.fullDate);
     if (data) {
         if (data.app_state.tracking) {
             currentSessionKey = data.last_state.inTimeMS;
