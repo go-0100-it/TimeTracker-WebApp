@@ -45,6 +45,7 @@ var postStartTime = function(newdate) {
         outTime: "-",
         outTimeMS: "-",
         date: newdate,
+        shift: shift,
         gps: gpsOn
     };
 
