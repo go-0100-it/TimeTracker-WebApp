@@ -103,13 +103,14 @@ var resetInputView = function() {
 beginListening();
 
 var updateUIlastState = function(data) {
+    var date = data.last_state.fullDate;
     if (data) {
         if (data.app_state.tracking) {
             currentSessionKey = data.last_state.inTimeMS;
             shiftInput.disabled = inTimeInput.disabled = startBtn.disabled = dateInput.disabled = true;
             finishBtn.disabled = false;
-            inTimeInput.value = data.fullDate.toLocaleTimeString();
-            dateInput.value = data.fullDate.toDateString();
+            inTimeInput.value = date.toLocaleTimeString();
+            dateInput.value = date.toDateString();
         }
         data.last_state.gps ? turnOnGps() : turnOffGps();
     }
