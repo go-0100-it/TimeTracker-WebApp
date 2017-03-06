@@ -16,12 +16,8 @@ var getAppState = function() {
 
 var getTimesDetail = function() {
     return times.once('value').then(function(snapshot) {
-        timesData = snapshot.val();
-    }).then(function() {
-        if (timesData) {
-            createTimesDetail(timesData);
-        }
-    });
+        createTimesDetail(snapshot.val());
+    })        
 };
 
 var postStartTime = function(newdate) {
