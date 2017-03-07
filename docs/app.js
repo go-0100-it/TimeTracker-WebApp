@@ -111,6 +111,7 @@ var updateUIlastState = function(data, source) {
         if (data.app_state.tracking) {
             currentSessionKey = data.last_state.inTimeMS;
             if (source === 'listener') {
+                console.log('listener called');
                 updateUIidol(date);
             } else {
                 updateUI(date);
