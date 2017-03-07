@@ -19,8 +19,6 @@ var deviceGps = true;
 
 finishBtn.disabled = true;
 
-getAppState();
-
 startBtn.addEventListener('click', function() {
     var newDate = new Date();
     updateUI(newDate);
