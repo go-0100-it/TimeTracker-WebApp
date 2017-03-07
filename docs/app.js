@@ -105,12 +105,12 @@ var resetInputView = function() {
 
 beginListening();
 
-var updateUIlastState = function(data) {
+var updateUIlastState = function(data, source) {
     var date = new Date(data.last_state.date);
     if (data) {
         if (data.app_state.tracking) {
             currentSessionKey = data.last_state.inTimeMS;
-            updateUI(date);
+            source === 'listener' ? updateUI(date) : updateUIidol(date);
             shiftInput.value = data.last_state.shift;
         }
         data.last_state.gps ? turnOnGps() : turnOffGps();
