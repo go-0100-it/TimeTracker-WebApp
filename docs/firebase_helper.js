@@ -10,7 +10,7 @@ var tracking;
 
 var getAppState = function() {
     return appDataRef.once('value').then(function(snapshot) {
-        updateUIlastState(snapshot.val());
+        updateUIlastState(snapshot.val(), 'last state');
     })
 };
 
