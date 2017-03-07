@@ -95,7 +95,7 @@ var updateGpsStatus = function() {
 
 var beginListening = function() {
     times.on('value', function(snapshot) {
-        updateUIlast_state(snapshot.val());
+        updateUIlastState(snapshot.val());
         console.log("Recieved new snapshot");
     });
     // appStateRef.on('value', function(snapshot) {
