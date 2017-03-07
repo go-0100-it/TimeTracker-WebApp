@@ -62,7 +62,7 @@
     font-weight: 900;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1300px) {
     .date-span {
         width: 89%;
         margin-top: 15px;
