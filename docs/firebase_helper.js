@@ -96,6 +96,7 @@ var updateGpsStatus = function() {
 var beginListening = function() {
     times.on('value', function(snapshot) {
         updateUI(snapshot.val());
+        console.log("Recieved new snapshot");
     });
     // appStateRef.on('value', function(snapshot) {
     //     lastState = snapshot.val();
@@ -108,8 +109,3 @@ var beginListening = function() {
 var stopListening = function() {
     times.off('value');
 };
-
-var starCountRef = firebase.database().ref('posts/' + postId + '/starCount');
-starCountRef.on('value', function(snapshot) {
-    updateStarCount(postElement, snapshot.val());
-});
