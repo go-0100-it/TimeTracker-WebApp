@@ -23,7 +23,7 @@ getAppState();
 
 startBtn.addEventListener('click', function() {
     var newDate = new Date();
-    updateUItracking(newDate);
+    updateUIlastState(newDate);
     postStartTime(newDate);
 });
 
