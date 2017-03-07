@@ -110,7 +110,11 @@ var updateUIlastState = function(data, source) {
     if (data) {
         if (data.app_state.tracking) {
             currentSessionKey = data.last_state.inTimeMS;
-            source === 'listener' ? updateUI(date) : updateUIidol(date);
+            if (source === 'listener') {
+                updateUIidol(date);
+            } else {
+                updateUI(date);
+            }
             shiftInput.value = data.last_state.shift;
         }
         data.last_state.gps ? turnOnGps() : turnOffGps();
