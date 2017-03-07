@@ -132,7 +132,6 @@ var updateUI = function() {
 };
 
 var updateUIidol = function() {
-    var date = new Date(data.last_state.date);
     newBtn.style.display = "inline-block";
     startBtn.style.display = finishBtn.style.display = "none";
     outTimeInput.disabled = messageInput.disabled = true;

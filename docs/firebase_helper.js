@@ -46,6 +46,7 @@ var postStartTime = function(newdate) {
         outTimeMS: "-",
         date: newdate,
         shift: shift,
+        comment: msgText,
         gps: gpsOn
     };
 
@@ -85,6 +86,20 @@ var postFinishTime = function(date) {
 
     return firebase.database().ref().update(updates);
 
+};
+
+var clearLastStateData = function() {
+
+    var lastState = {
+        inTime: "",
+        inTimeMS: "",
+        outTime: "-",
+        outTimeMS: "-",
+        date: new Date(),
+        shift: "DAYS"
+    };
+    updates['AppData/last_state'] = lastState;
+    return firebase.database().ref().update(updates);
 };
 
 var updateGpsStatus = function() {
