@@ -110,10 +110,11 @@ var updateUIlastState = function(data, source) {
     if (data) {
         if (data.app_state.tracking) {
             currentSessionKey = data.last_state.inTimeMS;
-            if (source === 'listener') {
+            if (source == 'listener') {
                 console.log('listener called');
                 updateUIidol(date);
             } else {
+                console.log('last state called');
                 updateUI(date);
             }
             shiftInput.value = data.last_state.shift;
