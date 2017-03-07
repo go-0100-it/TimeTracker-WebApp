@@ -48,7 +48,7 @@ showTimes.addEventListener('click', function() {
         getTimesDetail();
     } else {
         toggleMenuItemText('show-times', 'Show Times');
-        removeElement('removable-container');
+        removeElement(['removable-container','times-detail-title']);
         show_hideElement('display');
     }
 });
@@ -82,8 +82,11 @@ var turnOnGps = function() {
 };
 
 var removeElement = function(el) {
-    var elementToRemove = document.getElementById(el);
-    elementToRemove.parentNode.removeChild(elementToRemove);
+    len = el.length;
+    for (var i = 0; i < len; i++){
+        var elementToRemove = document.getElementById(el[i]);
+        elementToRemove.parentNode.removeChild(elementToRemove);
+    }
 };
 
 var toggleOptionsMenu = function() {
@@ -137,6 +140,7 @@ var createTimesDetail = function(data) {
 
     var title = document.createElement('h1');
     title.classList.add('sub-title');
+    title.id = ('times-detail-title');
     title.textContent = "Times Detail List";
     display.insertBefore(title, display.firstChild);
 
