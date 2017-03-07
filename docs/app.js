@@ -102,39 +102,43 @@ var resetInputView = function() {
 };
 
 var updateUIlastState = function(data, source) {
-    var date = new Date(data.last_state.date);
     if (data) {
+        var date = new Date(data.last_state.date);
+        inTimeInput.value = date.toLocaleTimeString();
+        outTime.value = date.toLocaleTimeString();
+        inTimeInput.value = date.toLocaleTimeString();
+        dateInput.value = date.toDateString();
+        messageInput.value = data.times.comment;
         if (data.app_state.tracking) {
             currentSessionKey = data.last_state.inTimeMS;
 
             console.log('last state called');
-            updateUI(date);
-
+            updateUI();
             shiftInput.value = data.last_state.shift;
         } else {
 
             console.log('listener called');
-            updateUIidol(date);
+            updateUIidol();
         }
         data.last_state.gps ? turnOnGps() : turnOffGps();
+    } else {
+        alert('There was a problem fetching data from the database.');
     }
 };
 
-var updateUI = function(date) {
+var updateUI = function() {
     shiftInput.disabled = inTimeInput.disabled = startBtn.disabled = dateInput.disabled = true;
     finishBtn.disabled = false;
-    inTimeInput.value = date.toLocaleTimeString();
-    dateInput.value = date.toDateString();
 };
 
-beginListening();
-
-var updateUIidol = function(date) {
+var updateUIidol = function() {
+    var date = new Date(data.last_state.date);
     newBtn.style.display = "inline-block";
     startBtn.style.display = finishBtn.style.display = "none";
     outTimeInput.disabled = messageInput.disabled = true;
-    outTime.value = date.toLocaleTimeString();
 };
+
+beginListening();
 
 var createTimesDetail = function(data) {
 
