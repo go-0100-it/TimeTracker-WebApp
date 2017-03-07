@@ -103,21 +103,20 @@ var resetInputView = function() {
     finishBtn.disabled = true;
 };
 
-beginListening();
-
 var updateUIlastState = function(data, source) {
     var date = new Date(data.last_state.date);
     if (data) {
         if (data.app_state.tracking) {
             currentSessionKey = data.last_state.inTimeMS;
-            if (source == 'listener') {
-                console.log('listener called');
-                updateUIidol(date);
-            } else {
-                console.log('last state called');
-                updateUI(date);
-            }
+
+            console.log('last state called');
+            updateUI(date);
+
             shiftInput.value = data.last_state.shift;
+        } else {
+
+            console.log('listener called');
+            updateUIidol(date);
         }
         data.last_state.gps ? turnOnGps() : turnOffGps();
     }
@@ -129,6 +128,8 @@ var updateUI = function(date) {
     inTimeInput.value = date.toLocaleTimeString();
     dateInput.value = date.toDateString();
 };
+
+beginListening();
 
 var updateUIidol = function(date) {
     newBtn.style.display = "inline-block";
