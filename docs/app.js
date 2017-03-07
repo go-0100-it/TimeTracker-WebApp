@@ -23,7 +23,7 @@ getAppState();
 
 startBtn.addEventListener('click', function() {
     var newDate = new Date();
-    updateUIlastState(newDate);
+    updateUI(newDate);
     postStartTime(newDate);
 });
 
@@ -103,18 +103,22 @@ var resetInputView = function() {
 beginListening();
 
 var updateUIlastState = function(data) {
-    var date = new Date(data.last_state.fullDate);
+    var date = new Date(data.last_state.date);
     if (data) {
         if (data.app_state.tracking) {
             currentSessionKey = data.last_state.inTimeMS;
-            shiftInput.disabled = inTimeInput.disabled = startBtn.disabled = dateInput.disabled = true;
-            finishBtn.disabled = false;
-            inTimeInput.value = date.toLocaleTimeString();
-            dateInput.value = date.toDateString();
+            updateUI(date);
             shiftInput.value = data.last_state.shift;
         }
         data.last_state.gps ? turnOnGps() : turnOffGps();
     }
+};
+
+var updateUI = function(date){
+    shiftInput.disabled = inTimeInput.disabled = startBtn.disabled = dateInput.disabled = true;
+    finishBtn.disabled = false;
+    inTimeInput.value = date.toLocaleTimeString();
+    dateInput.value = date.toDateString();
 };
 
 var updateUIidol = function(date) {
