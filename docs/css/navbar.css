@@ -34,7 +34,7 @@
     color: #04B2E3;
 }
 
-@media only screen and (max-width: 1230px) {
+@media only screen and (max-width: 1300px) {
     .nav-bar {
         border-bottom: none;
         ;
