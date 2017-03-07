@@ -48,7 +48,7 @@ showTimes.addEventListener('click', function() {
         getTimesDetail();
     } else {
         toggleMenuItemText('show-times', 'Show Times');
-        removeElement(['removable-container','times-detail-title']);
+        removeElement(['removable-container', 'times-detail-title']);
         show_hideElement('display');
     }
 });
@@ -83,7 +83,7 @@ var turnOnGps = function() {
 
 var removeElement = function(el) {
     len = el.length;
-    for (var i = 0; i < len; i++){
+    for (var i = 0; i < len; i++) {
         var elementToRemove = document.getElementById(el[i]);
         elementToRemove.parentNode.removeChild(elementToRemove);
     }
@@ -117,7 +117,7 @@ var updateUIlastState = function(data) {
     }
 };
 
-var updateUI = function(date){
+var updateUI = function(date) {
     shiftInput.disabled = inTimeInput.disabled = startBtn.disabled = dateInput.disabled = true;
     finishBtn.disabled = false;
     inTimeInput.value = date.toLocaleTimeString();

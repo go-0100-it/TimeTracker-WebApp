@@ -3,7 +3,7 @@ var appDataRef = firebase.database().ref("AppData");
 var appStateRef = firebase.database().ref("AppData/app_state");
 var appLastStateRef = firebase.database().ref("AppData/last_state/");
 var times = firebase.database().ref("times");
-var other = firebase.database().ref("other");
+var locations = firebase.database().ref("Locations");
 var appData;
 var currentSessionKey;
 var tracking;
@@ -17,7 +17,7 @@ var getAppState = function() {
 var getTimesDetail = function() {
     return times.once('value').then(function(snapshot) {
         createTimesDetail(snapshot.val());
-    })        
+    })
 };
 
 var postStartTime = function(newdate) {
@@ -95,14 +95,21 @@ var updateGpsStatus = function() {
 
 var beginListening = function() {
     times.on('value', function(snapshot) {
-        allTimes = snapshot.val();
-        //updateUI(allTimes);
+        updateUI(snapshot.val());
     });
-    appStateRef.on('value', function(snapshot) {
-        lastState = snapshot.val();
-    });
+    // appStateRef.on('value', function(snapshot) {
+    //     lastState = snapshot.val();
+    // });
+    // locations.on('value', function(snapshot) {
+    //     loc = snapshot.val();
+    // });
 };
 
 var stopListening = function() {
     times.off('value');
 };
+
+var starCountRef = firebase.database().ref('posts/' + postId + '/starCount');
+starCountRef.on('value', function(snapshot) {
+    updateStarCount(postElement, snapshot.val());
+});
