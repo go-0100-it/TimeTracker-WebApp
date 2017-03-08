@@ -74,7 +74,6 @@ var postFinishTime = function(date) {
 
     var updates = {};
 
-
     updates['/times/' + currentSessionKey + "/outTime"] = outTime;
     updates['/times/' + currentSessionKey + "/outTimeMS"] = time;
     updates['/times/' + currentSessionKey + "/comment"] = msgText;
@@ -98,6 +97,7 @@ var clearLastStateData = function() {
         date: new Date(),
         shift: "DAYS"
     };
+    var updates = {};
     updates['AppData/last_state'] = lastState;
     return firebase.database().ref().update(updates);
 };
