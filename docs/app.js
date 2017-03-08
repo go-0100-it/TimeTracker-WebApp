@@ -113,7 +113,7 @@ var updateUIlastState = function(data, source) {
                 resetInputView();
             } else {
                 console.log('last state called: UI finished:');
-                updateUIfished();
+                updateUIfinished();
                 shiftInput.value = data.last_state.shift;
             }
 
