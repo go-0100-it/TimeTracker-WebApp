@@ -144,7 +144,7 @@ var resetInputView = function() {
     finishBtn.disabled = true;
 };
 
-beginListening();
+beginListeningAppData();
 
 var createTimesDetail = function(data) {
 

@@ -108,7 +108,7 @@ var updateGpsStatus = function() {
     return firebase.database().ref().update(updates);
 };
 
-var beginListening = function() {
+var beginListeningAppData = function() {
     appDataRef.on('value', function(snapshot) {
         updateUIlastState(snapshot.val(), 'listener');
         console.log("Recieved new snapshot");
