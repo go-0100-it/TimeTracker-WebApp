@@ -108,7 +108,7 @@ var updateUIlastState = function(data, source) {
         outTime.value = date.toLocaleTimeString();
         inTimeInput.value = date.toLocaleTimeString();
         dateInput.value = date.toDateString();
-        messageInput.value = data.times.comment;
+        messageInput.value = data.last_state.comment;
         if (data.app_state.tracking) {
             currentSessionKey = data.last_state.inTimeMS;
 
