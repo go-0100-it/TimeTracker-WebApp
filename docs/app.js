@@ -96,13 +96,13 @@ var toggleOptionsMenu = function() {
 
 var updateUIlastState = function(data, source) {
     if (data) {
+        currentSessionKey = data.last_state.inTimeMS;
         var date = new Date(data.last_state.date);
         inTimeInput.value = data.last_state.inTime;
         outTimeInput.value = data.last_state.outTime;
         dateInput.value = date.toDateString();
         messageInput.value = data.last_state.comment;
         if (data.app_state.tracking) {
-
             console.log('last state called: UI start: Tracking');
             updateUIstart();
             shiftInput.value = data.last_state.shift;
