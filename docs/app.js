@@ -28,10 +28,11 @@ startBtn.addEventListener('click', function() {
 finishBtn.addEventListener('click', function() {
     var newDate = new Date();
     postFinishTime(newDate);
-    updateUIidol(newDate);
+    updateUIfinished(newDate);
 });
 
 newBtn.addEventListener('click', function() {
+    clearLastStateData();
     resetInputView();
 });
 
@@ -92,15 +93,6 @@ var toggleOptionsMenu = function() {
     dropdown[0].classList.toggle('dropdown-show');
 };
 
-var resetInputView = function() {
-    messageInput.value = inTimeInput.value = outTimeInput.value = dateInput.value = "";
-    shiftInput.value = "DAYS";
-    shiftInput.disabled = inTimeInput.disabled = outTimeInput.disabled = startBtn.disabled = dateInput.disabled = messageInput.disabled = false;
-    newBtn.style.display = "none";
-    startBtn.style.display = finishBtn.style.display = "inline-block";
-    finishBtn.disabled = true;
-};
-
 var updateUIlastState = function(data, source) {
     if (data) {
         var date = new Date(data.last_state.date);
@@ -110,15 +102,21 @@ var updateUIlastState = function(data, source) {
         dateInput.value = date.toDateString();
         messageInput.value = data.last_state.comment;
         if (data.app_state.tracking) {
-            currentSessionKey = data.last_state.inTimeMS;
 
-            console.log('last state called');
-            updateUI();
+            console.log('last state called: UI start: Tracking');
+            updateUIstart();
             shiftInput.value = data.last_state.shift;
-        } else {
 
-            console.log('listener called');
-            updateUIidol();
+        } else {
+            if (data.last_state.inTime === "-") {
+                console.log('last state called: UI start: Not Tracking');
+                resetInputView();
+            } else {
+                console.log('last state called: UI finished:');
+                updateUIfished();
+                shiftInput.value = data.last_state.shift;
+            }
+
         }
         data.last_state.gps ? turnOnGps() : turnOffGps();
     } else {
@@ -126,15 +124,24 @@ var updateUIlastState = function(data, source) {
     }
 };
 
-var updateUI = function() {
+var updateUIstart = function() {
     shiftInput.disabled = inTimeInput.disabled = startBtn.disabled = dateInput.disabled = true;
     finishBtn.disabled = false;
 };
 
-var updateUIidol = function() {
+var updateUIfinished = function() {
     newBtn.style.display = "inline-block";
     startBtn.style.display = finishBtn.style.display = "none";
     outTimeInput.disabled = messageInput.disabled = true;
+};
+
+var resetInputView = function() {
+    messageInput.value = inTimeInput.value = outTimeInput.value = dateInput.value = "";
+    shiftInput.value = "DAYS";
+    shiftInput.disabled = inTimeInput.disabled = outTimeInput.disabled = startBtn.disabled = dateInput.disabled = messageInput.disabled = false;
+    newBtn.style.display = "none";
+    startBtn.style.display = finishBtn.style.display = "inline-block";
+    finishBtn.disabled = true;
 };
 
 beginListening();
