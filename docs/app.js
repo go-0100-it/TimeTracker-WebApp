@@ -21,14 +21,15 @@ finishBtn.disabled = true;
 
 startBtn.addEventListener('click', function() {
     var newDate = new Date();
-    updateUI(newDate);
+
+    //updateUIstart(newDate);
     postStartTime(newDate);
 });
 
 finishBtn.addEventListener('click', function() {
     var newDate = new Date();
     postFinishTime(newDate);
-    updateUIfinished(newDate);
+    // updateUIfinished(newDate);
 });
 
 newBtn.addEventListener('click', function() {
@@ -96,9 +97,8 @@ var toggleOptionsMenu = function() {
 var updateUIlastState = function(data, source) {
     if (data) {
         var date = new Date(data.last_state.date);
-        inTimeInput.value = date.toLocaleTimeString();
-        outTime.value = date.toLocaleTimeString();
-        inTimeInput.value = date.toLocaleTimeString();
+        inTimeInput.value = data.last_state.inTime;
+        outTimeInput.value = data.last_state.outTime;
         dateInput.value = date.toDateString();
         messageInput.value = data.last_state.comment;
         if (data.app_state.tracking) {
@@ -108,7 +108,7 @@ var updateUIlastState = function(data, source) {
             shiftInput.value = data.last_state.shift;
 
         } else {
-            if (data.last_state.inTime === "-") {
+            if (data.last_state.inTime === "") {
                 console.log('last state called: UI start: Not Tracking');
                 resetInputView();
             } else {
@@ -132,7 +132,7 @@ var updateUIstart = function() {
 var updateUIfinished = function() {
     newBtn.style.display = "inline-block";
     startBtn.style.display = finishBtn.style.display = "none";
-    outTimeInput.disabled = messageInput.disabled = true;
+    inTimeInput.disabled = outTimeInput.disabled = messageInput.disabled = true;
 };
 
 var resetInputView = function() {

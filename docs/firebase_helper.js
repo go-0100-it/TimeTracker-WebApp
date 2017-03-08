@@ -88,13 +88,13 @@ var postFinishTime = function(date) {
 };
 
 var clearLastStateData = function() {
-
+    var date = new Date();
     var lastState = {
         inTime: "",
         inTimeMS: "",
         outTime: "-",
         outTimeMS: "-",
-        date: new Date(),
+        date: date,
         shift: "DAYS"
     };
     var updates = {};
