@@ -9,18 +9,21 @@ var currentSessionKey;
 var tracking;
 
 var getAppState = function() {
+            console.log('Called "getAppState()" method');
     return appDataRef.once('value').then(function(snapshot) {
         updateUIlastState(snapshot.val(), 'last state');
     })
 };
 
 var getTimesDetail = function() {
+        console.log('Called "getTimesDetail()" method');
     return times.once('value').then(function(snapshot) {
         createTimesDetail(snapshot.val());
     })
 };
 
 var postStartTime = function(newdate) {
+    console.log('Called "postStartTime()" method');
     var time = newdate.getTime();
     var inTime = newdate.toLocaleTimeString();
     var date = newdate.toDateString();
@@ -63,6 +66,7 @@ var postStartTime = function(newdate) {
 };
 
 var postFinishTime = function(date) {
+    console.log('Called "postFinishTime()" method');
     var msgText = messageInput.value;
     var outTime = outTimeInput.value = date.toLocaleTimeString();
     var time = date.getTime();
@@ -88,6 +92,7 @@ var postFinishTime = function(date) {
 };
 
 var clearLastStateData = function() {
+    console.log('Called "clearLastStateData()" method');
     var date = new Date();
     var lastState = {
         inTime: "",
@@ -95,7 +100,9 @@ var clearLastStateData = function() {
         outTime: "-",
         outTimeMS: "-",
         date: date,
-        shift: "DAYS"
+        shift: "DAYS",
+        gps: gpsOn,
+        comment: ""
     };
     var updates = {};
     updates['AppData/last_state'] = lastState;
@@ -103,12 +110,14 @@ var clearLastStateData = function() {
 };
 
 var updateGpsStatus = function() {
+    console.log('Called "updateGpsStatus()" method');
     var updates = {};
     updates['AppData/last_state/gps'] = gpsOn;
     return firebase.database().ref().update(updates);
 };
 
 var beginListeningAppData = function() {
+    console.log('Called "beginListeningAppData()" method');
     appDataRef.on('value', function(snapshot) {
         updateUIlastState(snapshot.val(), 'listener');
         console.log("Recieved new snapshot");
@@ -122,5 +131,6 @@ var beginListeningAppData = function() {
 };
 
 var stopListening = function() {
+    console.log('Called "stopListening()" method');
     appDataRef.off('value');
 };
