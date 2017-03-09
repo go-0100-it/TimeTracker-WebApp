@@ -41,6 +41,15 @@ var getLocationsDetailData = function() {
     createLocationsDetailView( /*snapshot.val()*/ );
 };
 
+var getTotalHrs = function(shift, t1, t2, date) {
+    console.log('Called "getTotalHrs()" method');
+    t2 = isNaN(t2) ? (new Date()).getTime() : t2;
+    var reduction = (shift === "ww" && (new Date(date).getDay()) === 6) ? 1920000 : 720000;
+    var msec = t2 - t1 - reduction;
+    var totalHrs = Math.floor((msec / (60 * 60 * 1000)) * 10) / 10;
+    return (totalHrs < 0) ? 0 : totalHrs;
+};
+
 var postStartTime = function(newdate) {
     console.log('Called "postStartTime()" method');
     var time = newdate.getTime();

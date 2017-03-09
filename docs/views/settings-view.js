@@ -11,5 +11,9 @@ var createSettingsView = function(data) {
     title.textContent = "Settings Detail";
     display.insertBefore(title, display.firstChild);
     results.appendChild(removableDiv);
-    show_hideElement(DISPLAY_VIEW_ID);
+    toggleElement(DISPLAY_VIEW_ID);
+};
+
+var show_settings = function() {
+    getSettingsData();
 };

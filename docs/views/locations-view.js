@@ -10,5 +10,9 @@ var createLocationsDetailView = function(data) {
     title.textContent = "Locations Detail";
     display.insertBefore(title, display.firstChild);
     results.appendChild(removableDiv);
-    show_hideElement(DISPLAY_VIEW_ID);
+    toggleElement(DISPLAY_VIEW_ID);
+};
+
+var show_Locations_Detail = function() {
+    getLocationsDetailData();
 };

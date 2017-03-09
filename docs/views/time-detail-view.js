@@ -11,5 +11,9 @@ var createTimesDetailView = function(data) {
     title.textContent = "Times Detail";
     display.insertBefore(title, display.firstChild);
     results.appendChild(removableDiv);
-    show_hideElement(DISPLAY_VIEW_ID);
+    toggleElement(DISPLAY_VIEW_ID);
+};
+
+var show_Times_Detail = function() {
+    getTimesDetailData();
 };
