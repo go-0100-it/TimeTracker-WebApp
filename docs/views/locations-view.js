@@ -1,5 +1,4 @@
-var createSettingsView = function(data) {
-    console.log('Called "createSettingsView()" method');
+var createLocationsDetailView = function(data) {
     var display = document.getElementById('display');
     var results = document.getElementById('results');
     var removableDiv = document.createElement('div');
@@ -7,8 +6,8 @@ var createSettingsView = function(data) {
 
     var title = document.createElement('h1');
     title.classList.add('sub-title');
-    title.id = (SETTINGS_VIEW_ID + '-title');
-    title.textContent = "Settings Detail";
+    title.id = (MANAGE_LOCATIONS_VIEW_ID + '-title');
+    title.textContent = "Locations Detail";
     display.insertBefore(title, display.firstChild);
     results.appendChild(removableDiv);
     show_hideElement(DISPLAY_VIEW_ID);

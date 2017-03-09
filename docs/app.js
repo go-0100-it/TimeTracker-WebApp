@@ -1,11 +1,3 @@
-var shiftInput = document.getElementById(SHIFT_TYPE_INPUT_ID);
-var messageInput = document.getElementById(COMMENT_INPUT_ID);
-var startBtn = document.getElementById(START_BUTTON_ID);
-var finishBtn = document.getElementById(FINISH_BUTTON_ID);
-var newBtn = document.getElementById(NEW_TIMES_BUTTON_ID);
-var inTimeInput = document.getElementById(INTIME_INPUT_ID);
-var outTimeInput = document.getElementById(OUTTIME_INPUT_ID);
-var dateInput = document.getElementById(DATE_INPUT_ID);
 var optionsMenuBtn = document.getElementById(OPTIONS_MENU_BUTTON_ID);
 var dropdown = document.getElementsByClassName('dropdown-content');
 var optionsMenuItem1Btn = document.getElementById(OPTIONS_MENU_ITEM_1_ID);
@@ -18,30 +10,8 @@ var gpsOffImgSrc = 'images/location_off.png';
 var gpsOn = false;
 var deviceGps = true;
 var timesShowing = false;
-var currentView = 'times-input-view';
+var currentView = TRACK_TIMES_VIEW_ID;
 var currentViewMenuItemText = TRACK_TIME;
-
-finishBtn.disabled = true;
-
-startBtn.addEventListener(CLICK, function() {
-    console.log('Start button clicked');
-    var newDate = new Date();
-
-    //updateUIstart(newDate);
-    postStartTime(newDate);
-});
-
-finishBtn.addEventListener(CLICK, function() {
-    console.log('Finish button clicked');
-    var newDate = new Date();
-    postFinishTime(newDate);
-    // updateUIfinished(newDate);
-});
-
-newBtn.addEventListener(CLICK, function() {
-    console.log('New button clicked');
-    clearLastStateData();
-});
 
 optionsMenuBtn.addEventListener(CLICK, function() {
     console.log('Options menu button clicked');
@@ -51,25 +21,25 @@ optionsMenuBtn.addEventListener(CLICK, function() {
 optionsMenuItem1Btn.addEventListener(CLICK, function() {
     var id = this.id;
     var text = this.textContent;
-    optionsClickRouter(text, id); 
+    showHideCurrentView(text, id);
 });
 
 optionsMenuItem2Btn.addEventListener(CLICK, function() {
     var id = this.id;
     var text = this.textContent;
-    optionsClickRouter(text, id);    
+    showHideCurrentView(text, id);
 });
 
 optionsMenuItem3Btn.addEventListener(CLICK, function() {
     var id = this.id;
     var text = this.textContent;
-    optionsClickRouter(text, id); 
+    showHideCurrentView(text, id);
 });
 
 optionsMenuItem4Btn.addEventListener(CLICK, function() {
     var id = this.id;
     var text = this.textContent;
-    optionsClickRouter(text, id); 
+    showHideCurrentView(text, id);
 });
 
 gps.addEventListener(CLICK, function() {
@@ -77,63 +47,55 @@ gps.addEventListener(CLICK, function() {
     toggleGps();
 });
 
-var optionsClickRouter = function(text, id){
+var showHideCurrentView = function(text, id) {
+
     console.log(currentViewMenuItemText);
     toggleOptionsMenu();
-    show_hideElement(currentView);
+    if (currentView === TRACK_TIMES_VIEW_ID) {
+        show_hideElement(currentView);
+    } else {
+        removeElement([currentView + '-title', REMOVABLE_CONTAINER_ID]);
+        show_hideElement(DISPLAY_VIEW_ID);
+    }
     toggleMenuItemText(id, currentViewMenuItemText);
-    switch(text){
+    optionClickedRouter(text);
+};
+
+var optionClickedRouter = function(text) {
+    switch (text) {
         case TRACK_TIME:
-            console.log('Track time options menu item clicked');
-            currentView = 'time-input-view';
+            show_hideElement(TRACK_TIMES_VIEW_ID);
+            currentView = TRACK_TIMES_VIEW_ID;
             currentViewMenuItemText = TRACK_TIME;
             break;
         case SETTINGS:
             show_settings();
             console.log('Settings options menu item clicked');
-            currentView = 'settings-view';
+            currentView = SETTINGS_VIEW_ID;
             currentViewMenuItemText = SETTINGS;
             break;
         case MANAGE_LOCATIONS:
-            alert(currentView);
-            console.log('Manage locations options menu item clicked');
-            currentView = 'manage-locations-view';
+            show_Locations_Detail();
+            currentView = MANAGE_LOCATIONS_VIEW_ID;
             currentViewMenuItemText = MANAGE_LOCATIONS;
             break;
         case MANAGE_TIMES:
-            console.log('Manage times options menu item clicked');
-            currentView = 'manage-times-view';
+            show_Times_Detail();
+            currentView = MANAGE_TIMES_VIEW_ID;
             currentViewMenuItemText = MANAGE_TIMES;
             break;
         case SHOW_TIMES:
+            show_Times();
             console.log('Show times options menu item clicked');
-            currentView = 'show-times-view';
+            currentView = SHOW_TIMES_VIEW_ID;
             currentViewMenuItemText = SHOW_TIMES;
             break;
         default:
             break;
     }
-    
-};
-
-var toggleTimesView = function() {
-    var choose = timesShowing ? hide_Times() : show_Times();
-};
-
-var toggleSettingsView = function() {
-    var choose = currentView === 'settings-view' ? hide_settings() : show_settings();
-};
-
-var hide_Times = function() {
-    timesShowing = false;
-    toggleMenuItemText('show-times', SHOW_TIMES);
-    removeElement(['removable-container', 'times-detail-title']);
-    show_hideElement('display');
 };
 
 var show_Times = function() {
-    timesShowing = true;
-    toggleMenuItemText('show-times', HIDE_TIMES);
     getTimesDetail();
 };
 
@@ -141,11 +103,12 @@ var show_settings = function() {
     getSettingsData();
 };
 
-var hide_settings = function() {
-    removeElement(['removable-container', 'settings-view-title']);
-    currentView = 'times-input-view';
-    show_hideElement(currentView);
-    show_hideElement('display');
+var show_Times_Detail = function() {
+    getTimesDetailData();
+};
+
+var show_Locations_Detail = function() {
+    getLocationsDetailData();
 };
 
 var toggleGps = function() {
@@ -181,128 +144,17 @@ var toggleOptionsMenu = function() {
     dropdown[0].classList.toggle('dropdown-show');
 };
 
-var updateUIlastState = function(data) {
-    console.log('Called "updateUIlastState()" method');
-    if (data) {
-        currentSessionKey = data.last_state.inTimeMS;
-        var date = new Date(data.last_state.date);
-        inTimeInput.value = data.last_state.inTime;
-        outTimeInput.value = data.last_state.outTime;
-        dateInput.value = date.toDateString();
-        messageInput.value = data.last_state.comment;
-        if (data.app_state.tracking) {
-            console.log('last state called: UI start: Tracking');
-            updateUIstart();
-            shiftInput.value = data.last_state.shift;
-
-        } else {
-            if (data.last_state.inTime === "") {
-                console.log('last state called: UI start: Not Tracking');
-                resetInputView();
-            } else {
-                console.log('last state called: UI finished:');
-                updateUIfinished();
-                shiftInput.value = data.last_state.shift;
-            }
-
-        }
-        data.last_state.gps ? turnOnGps() : turnOffGps();
-    } else {
-        alert('There was a problem fetching data from the database.');
-    }
-};
-
-var updateUIstart = function() {
-    console.log('Called "updateUIstart()" method');
-    shiftInput.disabled = inTimeInput.disabled = startBtn.disabled = dateInput.disabled = true;
-    finishBtn.disabled = false;
-};
-
-var updateUIfinished = function() {
-    console.log('Called "updateUIfinished()" method');
-    newBtn.style.display = "inline-block";
-    startBtn.style.display = finishBtn.style.display = "none";
-    inTimeInput.disabled = outTimeInput.disabled = messageInput.disabled = true;
-};
-
-var resetInputView = function() {
-    console.log('Called "resetInputView()" method');
-    messageInput.value = inTimeInput.value = outTimeInput.value = dateInput.value = "";
-    shiftInput.value = "DAYS";
-    shiftInput.disabled = inTimeInput.disabled = outTimeInput.disabled = startBtn.disabled = dateInput.disabled = messageInput.disabled = false;
-    newBtn.style.display = "none";
-    startBtn.style.display = finishBtn.style.display = "inline-block";
-    finishBtn.disabled = true;
-};
-
-beginListeningAppData();
-
-var createTimesList = function(data) {
-    console.log('Called "createTimesDetail()" method');
-    var display = document.getElementById('display');
-    var results = document.getElementById('results');
-    var removableDiv = document.createElement('div');
-    removableDiv.id = ('removable-container');
-
-    var title = document.createElement('h1');
-    title.classList.add('sub-title');
-    title.id = ('times-detail-title');
-    title.textContent = "Times Detail List";
-    display.insertBefore(title, display.firstChild);
-
-    for (var prop in data) {
-
-        var inTime = data[prop].inTime;
-        var outTime = data[prop].outTime;
-        var shift = data[prop].shift;
-
-        var div = document.createElement('div');
-        div.classList.add("times-list-item");
-        div.id = (prop);
-        var shiftSpan = document.createElement('span');
-        shiftSpan.classList.add('shift-span');
-        shiftSpan.textContent = shift.charAt(0).toUpperCase();
-        div.appendChild(shiftSpan);
-        var dateSpan = document.createElement('span');
-        dateSpan.classList.add('date-span');
-        dateSpan.textContent = data[prop].date;
-        div.appendChild(dateSpan);
-        var inSpan = document.createElement('span');
-        inSpan.classList.add('in-time');
-        inSpan.textContent = inTime;
-        div.appendChild(inSpan);
-        var outSpan = document.createElement('span');
-        outSpan.classList.add('out-time');
-        outSpan.textContent = outTime;
-        div.appendChild(outSpan);
-        var totalHrs = document.createElement('span');
-        totalHrs.classList.add('total-hrs');
-        totalHrs.textContent = getTotalHrs(shift, data[prop].inTimeMS, data[prop].outTimeMS, data[prop].fullDate) + " hrs";
-        div.appendChild(totalHrs);
-        removableDiv.appendChild(div);
-    }
-    results.appendChild(removableDiv);
-    show_hideElement('display');
-};
-
 var show_hideElement = function(el) {
     console.log('Called "show_hideElement()" method  --' + el);
     document.getElementById(el).classList.toggle('hide');
 };
 
 var toggleMenuItemText = function(el, optionText) {
-    console.log('Called "toggleMenuItemText()" method with: '+ el + ' and ' + optionText);
+    console.log('Called "toggleMenuItemText()" method with: ' + el + ' and ' + optionText);
     document.getElementById(el).textContent = optionText;
 };
 
-var getTotalHrs = function(shift, t1, t2, date) {
-    console.log('Called "getTotalHrs()" method');
-    t2 = isNaN(t2) ? (new Date()).getTime() : t2;
-    var reduction = (shift === "ww" && (new Date(date).getDay()) === 6) ? 1920000 : 720000;
-    var msec = t2 - t1 - reduction;
-    var totalHrs = Math.floor((msec / (60 * 60 * 1000)) * 10) / 10;
-    return (totalHrs < 0) ? 0 : totalHrs;
-};
+beginListeningAppData();
 
 var mobile = {
     Android: function() {

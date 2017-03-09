@@ -3,7 +3,8 @@ var appDataRef = firebase.database().ref("AppData");
 var appStateRef = firebase.database().ref("AppData/app_state");
 var appLastStateRef = firebase.database().ref("AppData/last_state/");
 var times = firebase.database().ref("times");
-var locations = firebase.database().ref("Locations");
+var locationsDetailref = firebase.database().ref("Locations");
+var locationsDetailref = firebase.database().ref("Locations");
 var appData;
 var currentSessionKey;
 var tracking;
@@ -27,6 +28,17 @@ var getSettingsData = function() {
     return appStateRef.once('value').then(function(snapshot) {
         createSettingsView(snapshot.val());
     });
+};
+
+var getTimesDetailData = function() {
+    return times.once('value').then(function(snapshot) {
+        createTimesDetailView(snapshot.val());
+    });
+};
+
+var getLocationsDetailData = function() {
+    /*return locationsDetailref.once('value').then(function(snapshot) {*/
+    createLocationsDetailView( /*snapshot.val()*/ );
 };
 
 var postStartTime = function(newdate) {
