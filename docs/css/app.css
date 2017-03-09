@@ -38,7 +38,7 @@ body {
 .display-container {
     width: 100%;
     background-color: #a0856e;
-    box-shadow: 0 2.5px 15px #111111;
+    box-shadow: 0 2.5px 15px #111;
     border-radius: 10px;
 }
 
@@ -61,7 +61,7 @@ body {
     font-weight: 400;
     color: #585c63;
     background: #ebe7e7;
-    box-shadow: 0 1px 5px #111111;
+    box-shadow: 0 1px 5px #111;
 }
 
 #shift-type {
@@ -73,7 +73,7 @@ body {
     padding-left: 5px;
     font-size: 1.2em;
     cursor: pointer;
-    box-shadow: 0 1px 5px #111111;
+    box-shadow: 0 1px 5px #111;
 }
 
 #shift-type:hover {
@@ -92,9 +92,9 @@ body {
     width: 30%;
     height: 20px;
     border-radius: 8px;
-    margin: 0 0.25%;
+    margin: 0;
     padding: 10px 1%;
-    box-shadow: 0 1px 5px #111111;
+    box-shadow: 0 1px 5px #111;
 }
 
 #inTime:disabled {
@@ -110,11 +110,10 @@ body {
     height: 200px;
     margin: 10px 0;
     border-radius: 8px;
-    white-space: pre-wrap;
     padding: 10px;
     background: #ebe7e7;
     font-size: 1.3em;
-    box-shadow: 0 1px 5px #111111;
+    box-shadow: 0 1px 5px #111;
 }
 
 #new {
@@ -123,9 +122,9 @@ body {
     height: 50px;
     margin: 0;
     border-radius: 25px;
-    background: #000000;
-    color: #ffffff;
-    box-shadow: 0 2.5px 15px #111111;
+    background: #000;
+    color: #fff;
+    box-shadow: 0 2.5px 15px #111;
     cursor: pointer;
 }
 
@@ -137,7 +136,7 @@ body {
 
 #start {
     background: #32cd32;
-    box-shadow: 0 2.5px 15px #111111;
+    box-shadow: 0 2.5px 15px #111;
 }
 
 #start:hover {
@@ -156,7 +155,7 @@ body {
 
 #finish {
     background: #d81b1b;
-    box-shadow: 0 2.5px 15px #111111;
+    box-shadow: 0 2.5px 15px #111;
 }
 
 #finish:hover {
@@ -210,21 +209,15 @@ hr {
     }
     .input-section,
     .results {
-        min-width: 400px;
         max-width: 510px;
         width: 40%;
-        margin: 0 auto;
-        text-align: center;
     }
 }
 
 @media only screen and (max-width: 500px) {
     .header-h1 {
-        margin: 0;
         padding: 15px 0 0 0;
         font-size: 2.05em;
-        font-weight: 600;
-        text-shadow: -2px 4px 4px rgba(150, 150, 150, 0.75);
     }
     .container {
         width: 100%;
@@ -242,8 +235,6 @@ hr {
     .results {
         min-width: 320px;
         width: 90%;
-        margin: 0 auto;
-        text-align: center;
     }
     #shift-type {
         width: 65%;
@@ -254,9 +245,6 @@ hr {
     }
     .time {
         width: 90%;
-        height: 20px;
-        border-radius: 8px;
-        margin: 0;
         padding: 10px 10px;
     }
     .shift-title {
@@ -268,7 +256,6 @@ hr {
         width: 91%;
         height: 140px;
         margin: 10px 0;
-        border-radius: 8px;
         padding: 10px;
         background: #ebe7e7;
         font-size: 1.3em;
@@ -277,10 +264,5 @@ hr {
         width: 30%;
         height: 50px;
         border-radius: 25px;
-    }
-    hr {
-        margin: 0 auto;
-        margin-top: 15px;
-        width: 100%;
     }
 }

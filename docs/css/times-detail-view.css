@@ -77,7 +77,6 @@
         font-size: 1em;
         margin: 0 1% 0 0;
     }
-
     .total-hrs {
         width: 32.33%;
         font-size: 1em;
@@ -86,21 +85,16 @@
 }
 
 @media only screen and (max-width: 500px) {
-
     .date-span {
         width: 82%;
-        margin-top: 15px;
         font-size: 1em;
     }
-
     .shift-span {
         width: 15%;
         font-size: 1em;
     }
-
     .in-time,
     .out-time {
         font-size: 0.9em;
     }
-
 }
