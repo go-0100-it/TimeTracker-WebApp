@@ -18,7 +18,8 @@ var gpsOffImgSrc = 'images/location_off.png';
 var gpsOn = false;
 var deviceGps = true;
 var timesShowing = false;
-var currentView = '';
+var currentView = 'times-input-view';
+var currentViewMenuItemText = TRACK_TIME;
 
 finishBtn.disabled = true;
 
@@ -48,23 +49,27 @@ optionsMenuBtn.addEventListener(CLICK, function() {
 });
 
 optionsMenuItem1Btn.addEventListener(CLICK, function() {
+    var id = this.id;
     var text = this.textContent;
-    optionsClickRouter(text); 
+    optionsClickRouter(text, id); 
 });
 
 optionsMenuItem2Btn.addEventListener(CLICK, function() {
+    var id = this.id;
     var text = this.textContent;
-    optionsClickRouter(text);    
+    optionsClickRouter(text, id);    
 });
 
 optionsMenuItem3Btn.addEventListener(CLICK, function() {
+    var id = this.id;
     var text = this.textContent;
-    optionsClickRouter(text); 
+    optionsClickRouter(text, id); 
 });
 
 optionsMenuItem4Btn.addEventListener(CLICK, function() {
+    var id = this.id;
     var text = this.textContent;
-    optionsClickRouter(text); 
+    optionsClickRouter(text, id); 
 });
 
 gps.addEventListener(CLICK, function() {
@@ -72,31 +77,43 @@ gps.addEventListener(CLICK, function() {
     toggleGps();
 });
 
-var optionsClickRouter = function(text){
-
-    console.log(text);
+var optionsClickRouter = function(text, id){
+    console.log(currentViewMenuItemText);
     toggleOptionsMenu();
-    var choose = currentView === 'times-input-view' ? show_hideElement('times-input-view') : null;
+    show_hideElement(currentView);
+    toggleMenuItemText(id, currentViewMenuItemText);
     switch(text){
         case TRACK_TIME:
+            console.log('Track time options menu item clicked');
+            currentView = 'time-input-view';
+            currentViewMenuItemText = TRACK_TIME;
             break;
         case SETTINGS:
+            show_settings();
             console.log('Settings options menu item clicked');
-            toggleSettingsView();
+            currentView = 'settings-view';
+            currentViewMenuItemText = SETTINGS;
             break;
         case MANAGE_LOCATIONS:
+            alert(currentView);
+            console.log('Manage locations options menu item clicked');
+            currentView = 'manage-locations-view';
+            currentViewMenuItemText = MANAGE_LOCATIONS;
             break;
         case MANAGE_TIMES:
             console.log('Manage times options menu item clicked');
+            currentView = 'manage-times-view';
+            currentViewMenuItemText = MANAGE_TIMES;
             break;
         case SHOW_TIMES:
             console.log('Show times options menu item clicked');
-            toggleTimesView();
+            currentView = 'show-times-view';
+            currentViewMenuItemText = SHOW_TIMES;
             break;
-        case HIDE_TIMES:
-            toggleTimesView();
+        default:
             break;
     }
+    
 };
 
 var toggleTimesView = function() {
@@ -121,7 +138,6 @@ var show_Times = function() {
 };
 
 var show_settings = function() {
-    show_hideElement(currentView);
     getSettingsData();
 };
 
@@ -275,7 +291,7 @@ var show_hideElement = function(el) {
 };
 
 var toggleMenuItemText = function(el, optionText) {
-    console.log('Called "toggleMenuItemText()" method');
+    console.log('Called "toggleMenuItemText()" method with: '+ el + ' and ' + optionText);
     document.getElementById(el).textContent = optionText;
 };
 

@@ -1,5 +1,4 @@
 var createSettingsView = function(data) {
-    currentView = 'settings-view';
     console.log('Called "createSettingsView()" method');
     var display = document.getElementById('display');
     var results = document.getElementById('results');
