@@ -9,17 +9,24 @@ var currentSessionKey;
 var tracking;
 
 var getAppState = function() {
-            console.log('Called "getAppState()" method');
+    console.log('Called "getAppState()" method');
     return appDataRef.once('value').then(function(snapshot) {
         updateUIlastState(snapshot.val(), 'last state');
-    })
+    });
 };
 
 var getTimesDetail = function() {
-        console.log('Called "getTimesDetail()" method');
+    console.log('Called "getTimesDetail()" method');
     return times.once('value').then(function(snapshot) {
-        createTimesDetail(snapshot.val());
-    })
+        createTimesList(snapshot.val());
+    });
+};
+
+var getSettingsData = function() {
+    console.log('Called "getSettingsData()" method');
+    return appStateRef.once('value').then(function(snapshot) {
+        createSettingsView(snapshot.val());
+    });
 };
 
 var postStartTime = function(newdate) {

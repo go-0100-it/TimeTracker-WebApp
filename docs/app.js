@@ -16,11 +16,13 @@ var gpsOnImgSrc = 'images/location_gps.png';
 var gpsOffImgSrc = 'images/location_off.png';
 var gpsOn = false;
 var deviceGps = true;
+var timesShowing = false;
+var currentView = 'times-input-view';
 
 finishBtn.disabled = true;
 
 startBtn.addEventListener('click', function() {
-            console.log('Start button clicked');
+    console.log('Start button clicked');
     var newDate = new Date();
 
     //updateUIstart(newDate);
@@ -28,50 +30,79 @@ startBtn.addEventListener('click', function() {
 });
 
 finishBtn.addEventListener('click', function() {
-                console.log('Finish button clicked');
+    console.log('Finish button clicked');
     var newDate = new Date();
     postFinishTime(newDate);
     // updateUIfinished(newDate);
 });
 
 newBtn.addEventListener('click', function() {
-                console.log('New button clicked');
+    console.log('New button clicked');
     clearLastStateData();
 });
 
 optionsMenuBtn.addEventListener('click', function() {
-                console.log('Options menu button clicked');
+    console.log('Options menu button clicked');
     toggleOptionsMenu();
 });
 
 showTimes.addEventListener('click', function() {
-                console.log('Show times options menu item clicked');
+    console.log('Show times options menu item clicked');
     toggleOptionsMenu();
-    if (this.textContent === 'Show Times') {
-        toggleMenuItemText('show-times', 'Hide Times');
-        getTimesDetail();
-    } else {
-        toggleMenuItemText('show-times', 'Show Times');
-        removeElement(['removable-container', 'times-detail-title']);
-        show_hideElement('display');
-    }
+    show_hideElement(currentView);
+    toggleTimesView();
 });
 
 settings.addEventListener('click', function() {
-                console.log('Settings options menu item clicked');
+    console.log('Settings options menu item clicked');
     toggleOptionsMenu();
-    gpsOn ? getLocation() : alert('GPS is not on.  Please turn on GPS and try again.');
+    var choose = timesShowing ? hide_Times() : null;
+    toggleSettingsView();
 });
 
 manageTimes.addEventListener('click', function() {
-                console.log('Manage times options menu item clicked');
+    console.log('Manage times options menu item clicked');
     toggleOptionsMenu();
+    show_hideElement(currentView);
 });
 
 gps.addEventListener('click', function() {
-                console.log('gps button clicked');
+    console.log('gps button clicked');
     toggleGps();
 });
+
+var toggleTimesView = function() {
+    var choose = timesShowing ? hide_Times() : show_Times();
+};
+
+var toggleSettingsView = function() {
+    var choose = currentView === 'settings-view' ? hide_settings() : show_settings();
+};
+
+var hide_Times = function() {
+    timesShowing = false;
+    toggleMenuItemText('show-times', 'Show Times');
+    removeElement(['removable-container', 'times-detail-title']);
+    show_hideElement('display');
+};
+
+var show_Times = function() {
+    timesShowing = true;
+    toggleMenuItemText('show-times', 'Hide Times');
+    getTimesDetail();
+};
+
+var show_settings = function() {
+    show_hideElement(currentView);
+    getSettingsData();
+};
+
+var hide_settings = function() {
+    removeElement(['removable-container', 'settings-view-title']);
+    currentView = 'times-input-view';
+    show_hideElement(currentView);
+    show_hideElement('display');
+};
 
 var toggleGps = function() {
     console.log('Called "toggleGps()" method');
@@ -162,7 +193,7 @@ var resetInputView = function() {
 
 beginListeningAppData();
 
-var createTimesDetail = function(data) {
+var createTimesList = function(data) {
     console.log('Called "createTimesDetail()" method');
     var display = document.getElementById('display');
     var results = document.getElementById('results');
@@ -205,10 +236,10 @@ var createTimesDetail = function(data) {
         totalHrs.textContent = getTotalHrs(shift, data[prop].inTimeMS, data[prop].outTimeMS, data[prop].fullDate) + " hrs";
         div.appendChild(totalHrs);
         removableDiv.appendChild(div);
-    };
+    }
     results.appendChild(removableDiv);
     show_hideElement('display');
-}
+};
 
 var show_hideElement = function(el) {
     console.log('Called "show_hideElement()" method');
