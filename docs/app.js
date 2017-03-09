@@ -69,7 +69,7 @@ messageInput.value = mobile.any();
 
 var getLocationAddress = function() {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', "//maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyB6qFUEfGmSRAS28jWCj-WVmO1Q4NN2W9A", true);
+    xhr.open('GET', "//ipinfo.io/json", true);
     xhr.send();
 
     xhr.onreadystatechange = processRequest;
