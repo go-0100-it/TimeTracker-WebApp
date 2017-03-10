@@ -36,8 +36,9 @@ var getGPSLocationAddress = function() {
                 var response = JSON.parse(xhr.responseText);
                 currentLocation = (response.results[0].formatted_address);
                 messageToUser(currentLocation);
-                setTimeout(function(){ gpsLooper(gpsOn); }, 2000);
+                console.log('Still checking')
             }
+            setTimeout(function(){ gpsLooper(gpsOn); }, 2000);
         }
     }
 };
