@@ -78,8 +78,7 @@ var getLocationAddress = function() {
     function processRequest(e) {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var response = JSON.parse(xhr.responseText);
-            result = (response.results[0].formatted_address);
+            messageInput.value = (response.results[0].formatted_address);
         }
     }
-    return result;
 };
