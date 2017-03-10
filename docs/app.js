@@ -77,7 +77,7 @@ var getLocationAddress = function() {
 
     function showPosition(position) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', "//maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&key=AIzaSyB6qFUEfGmSRAS28jWCj-WVmO1Q4NN2W9A", true);
+        xhr.open('GET', "//maps.googleapis.com/maps/api/geocode/json?latlng=" + toString(position.coords.latitude) + "," + toString(position.coords.longitude) + "&key=AIzaSyB6qFUEfGmSRAS28jWCj-WVmO1Q4NN2W9A", true);
         xhr.send();
         xhr.onreadystatechange = processRequest;
 
