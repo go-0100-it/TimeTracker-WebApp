@@ -22,6 +22,7 @@ var getGPSLocationAddress = function() {
     var watchID = navigator.geolocation.watchPosition(showPosition);
 
     function showPosition(position) {
+        console.log('requested location')
         var xhr = new XMLHttpRequest();
         xhr.open('GET', "//maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&key=AIzaSyB6qFUEfGmSRAS28jWCj-WVmO1Q4NN2W9A", true);
         xhr.send();
