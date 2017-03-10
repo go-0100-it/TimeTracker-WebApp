@@ -80,12 +80,12 @@ var getLocationAddress = function() {
         xhr.open('GET', "//maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&key=AIzaSyB6qFUEfGmSRAS28jWCj-WVmO1Q4NN2W9A", true);
         xhr.send();
         xhr.onreadystatechange = processRequest;
-    }
 
-    function processRequest(e) {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            var response = JSON.parse(xhr.responseText);
-            messageInput.value = (response.results[0].formatted_address);
+        function processRequest(e) {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var response = JSON.parse(xhr.responseText);
+                messageInput.value = (response.results[0].formatted_address);
+            }
         }
     }
 };
