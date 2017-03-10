@@ -21,7 +21,7 @@ var toggleGps = function() {
 
 var turnOffGps = function() {
     clearInterval(gpsOsilator);
-    setTimeout(function() { messageInput.value = "GPS DEACTIVATED"; }, 10000);
+    setTimeout(function() { messageInput.value = "GPS DEACTIVATED"; }, 15000);
     gps.src = gpsOffImgSrc;
     return false;
 };
