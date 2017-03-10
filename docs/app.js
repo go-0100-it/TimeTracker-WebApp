@@ -20,12 +20,14 @@ var toggleGps = function() {
 };
 
 var turnOffGps = function() {
+    clearInterval(gpsOsilator);
     gps.src = gpsOffImgSrc;
     return false;
 };
 
 var turnOnGps = function() {
     gps.src = gpsOnImgSrc;
+    gpsOsilator = setInterval(function() { getLocationAddress(); }, 2000);
     return true;
 };
 
