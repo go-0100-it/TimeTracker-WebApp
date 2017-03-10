@@ -20,7 +20,7 @@ var toggleGps = function() {
 };
 
 var turnOffGps = function() {
-    messageInput.value = "";
+    setTimeout(function() { messageInput.value = ""; }, 3000);
     clearInterval(gpsOsilator);
     gps.src = gpsOffImgSrc;
     return false;
