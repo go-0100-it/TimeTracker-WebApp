@@ -6,6 +6,7 @@ var deviceGps = true;
 var currentView = TRACK_TIMES_VIEW_ID;
 var currentViewMenuItemText = TRACK_TIME;
 var gpsOscilator;
+var watchId;
 
 gps.addEventListener(CLICK, function() {
     toggleGps();
@@ -33,7 +34,7 @@ var turnOnGps = function() {
     /* geolocation is available */
     gps.src = gpsOnImgSrc;
     messageToUser("GPS ACTIVATED,  Searching....");
-    getGPSLocationAddress();
+    watchId = getGPSLocationAddress();
     //gpsOscilator = setInterval(function() { getGPSLocationAddress(); }, 6000);
     return true;
     } else {

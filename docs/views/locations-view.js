@@ -37,4 +37,5 @@ var getGPSLocationAddress = function() {
             //setTimeout(function(){ gpsLooper(gpsOn); }, 5000);
         }
     }
+    return watchID;
 };
