@@ -68,6 +68,7 @@ messageInput.value = mobile.any();
 // https:
 
 var getLocationAddress = function() {
+    var result;
     var xhr = new XMLHttpRequest();
     xhr.open('GET', "//maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyB6qFUEfGmSRAS28jWCj-WVmO1Q4NN2W9A", true);
     xhr.send();
@@ -77,8 +78,8 @@ var getLocationAddress = function() {
     function processRequest(e) {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var response = JSON.parse(xhr.responseText);
-            return (response.results[0].formatted_address);
+            result = (response.results[0].formatted_address);
         }
     }
-    return xhr.onreadystatechange;
+    return result;
 };
