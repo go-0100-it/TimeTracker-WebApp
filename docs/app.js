@@ -68,12 +68,19 @@ messageInput.value = mobile.any();
 // https:
 
 var getLocationAddress = function() {
-    var result;
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', "//maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyB6qFUEfGmSRAS28jWCj-WVmO1Q4NN2W9A", true);
-    xhr.send();
 
-    xhr.onreadystatechange = processRequest;
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.value = "Geolocation is not supported by this browser.";
+    }
+
+    function showPosition(position) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', "//maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&key=AIzaSyB6qFUEfGmSRAS28jWCj-WVmO1Q4NN2W9A", true);
+        xhr.send();
+        xhr.onreadystatechange = processRequest;
+    }
 
     function processRequest(e) {
         if (xhr.readyState == 4 && xhr.status == 200) {
