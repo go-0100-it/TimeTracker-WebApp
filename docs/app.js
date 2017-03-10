@@ -81,4 +81,5 @@ var getLocationAddress = function() {
             return (response.results[0].formatted_address);
         }
     }
+    return xhr.onreadystatechange;
 };
