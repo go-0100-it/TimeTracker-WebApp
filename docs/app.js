@@ -1,7 +1,7 @@
 var gps = document.getElementById('gps');
 var gpsOnImgSrc = 'images/location_gps.png';
 var gpsOffImgSrc = 'images/location_off.png';
-var gpsOn = false;
+var gpsOn = true;
 var deviceGps = true;
 var currentView = TRACK_TIMES_VIEW_ID;
 var currentViewMenuItemText = TRACK_TIME;
@@ -22,6 +22,7 @@ var toggleGps = function() {
 
 var turnOffGps = function() {
     //setTimeout(function() { messageInput.value = "GPS DEACTIVATED"; }, 15000);
+    navigator.geolocation.clearWatch(getGPSLocationAddress.watchId);
     gps.src = gpsOffImgSrc;
     return false;
 };

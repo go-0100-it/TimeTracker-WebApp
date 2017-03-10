@@ -19,11 +19,7 @@ var show_Locations_Detail = function() {
 
 var getGPSLocationAddress = function() {
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.value = "Geolocation is not supported by this browser.";
-    }
+    var watchID = navigator.geolocation.watchPosition(showPosition);
 
     function showPosition(position) {
         var xhr = new XMLHttpRequest();
@@ -36,9 +32,9 @@ var getGPSLocationAddress = function() {
                 var response = JSON.parse(xhr.responseText);
                 currentLocation = (response.results[0].formatted_address);
                 messageToUser(currentLocation);
-                console.log('Still checking')
+                console.log('Still checking');
             }
-            setTimeout(function(){ gpsLooper(gpsOn); }, 2000);
+            //setTimeout(function(){ gpsLooper(gpsOn); }, 5000);
         }
     }
 };
