@@ -5,6 +5,7 @@ var gpsOn = false;
 var deviceGps = true;
 var currentView = TRACK_TIMES_VIEW_ID;
 var currentViewMenuItemText = TRACK_TIME;
+var gpsOscilator;
 
 gps.addEventListener(CLICK, function() {
     toggleGps();
@@ -20,18 +21,35 @@ var toggleGps = function() {
 };
 
 var turnOffGps = function() {
-    clearInterval(gpsOsilator);
-    messageInput.value = "GPS DEACTIVATED,  Stopping....";
-    setTimeout(function() { messageInput.value = "GPS DEACTIVATED"; }, 15000);
+    //setTimeout(function() { messageInput.value = "GPS DEACTIVATED"; }, 15000);
     gps.src = gpsOffImgSrc;
     return false;
 };
 
 var turnOnGps = function() {
+    if ("geolocation" in navigator) {
+    /* geolocation is available */
     gps.src = gpsOnImgSrc;
-    messageInput.value = "GPS ACTIVATED,  Searching....";
-    gpsOsilator = setInterval(function() { getLocationAddress(); }, 6000);
+    messageToUser("GPS ACTIVATED,  Searching....");
+    getGPSLocationAddress();
+    //gpsOscilator = setInterval(function() { getGPSLocationAddress(); }, 6000);
     return true;
+    } else {
+    /* geolocation IS NOT available */
+    messageToUser('Unfortunately, your device does not support GPS.');
+    return false;
+    }
+    
+};
+
+var gpsLooper = function(loop){
+    if(loop){
+        getGPSLocationAddress();
+    }else{
+        messageToUser("GPS Deactivated..");
+    }
+    
+
 };
 
 var removeElement = function(el) {
@@ -72,26 +90,3 @@ var mobile = {
 messageInput.value = mobile.any();
 // https:
 
-var getLocationAddress = function() {
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.value = "Geolocation is not supported by this browser.";
-    }
-
-    function showPosition(position) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', "//maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&key=AIzaSyB6qFUEfGmSRAS28jWCj-WVmO1Q4NN2W9A", true);
-        xhr.send();
-        xhr.onreadystatechange = processRequest;
-
-        function processRequest(e) {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var response = JSON.parse(xhr.responseText);
-                currentLocation = (response.results[0].formatted_address);
-                messageInput.value = currentLocation;
-            }
-        }
-    }
-};

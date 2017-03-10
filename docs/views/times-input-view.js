@@ -131,6 +131,10 @@ var resetInputView = function() {
     finishBtn.disabled = true;
 };
 
+var messageToUser = function(message){
+    messageInput.value = message;
+};
+
 var show_Times = function() {
     getTimesDetail();
 };
