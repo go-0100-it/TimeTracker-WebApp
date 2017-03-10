@@ -27,7 +27,7 @@ var turnOffGps = function() {
 
 var turnOnGps = function() {
     gps.src = gpsOnImgSrc;
-    gpsOsilator = setInterval(function() { getLocationAddress(); }, 2000);
+    gpsOsilator = setInterval(function() { getLocationAddress(); }, 3000);
     return true;
 };
 
@@ -87,7 +87,6 @@ var getLocationAddress = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var response = JSON.parse(xhr.responseText);
                 messageInput.value = (response.results[0].formatted_address);
-                alert(response.results[0].formatted_address);
             }
         }
     }
