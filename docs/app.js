@@ -28,7 +28,7 @@ var turnOffGps = function() {
 
 var turnOnGps = function() {
     gps.src = gpsOnImgSrc;
-    gpsOsilator = setInterval(function() { getLocationAddress(); }, 3000);
+    gpsOsilator = setInterval(function() { getLocationAddress(); }, 6000);
     return true;
 };
 
