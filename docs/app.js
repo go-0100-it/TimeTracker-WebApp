@@ -28,6 +28,7 @@ var turnOffGps = function() {
 
 var turnOnGps = function() {
     gps.src = gpsOnImgSrc;
+    messageInput.value = "GPS ACTIVATED,  Searching....";
     gpsOsilator = setInterval(function() { getLocationAddress(); }, 6000);
     return true;
 };
