@@ -23,6 +23,7 @@ var toggleGps = function() {
 var turnOffGps = function() {
     //setTimeout(function() { messageInput.value = "GPS DEACTIVATED"; }, 15000);
     navigator.geolocation.clearWatch(getGPSLocationAddress.watchId);
+    messageToUser("GPS Deactivated..");
     gps.src = gpsOffImgSrc;
     return false;
 };
@@ -47,10 +48,7 @@ var gpsLooper = function(loop){
     if(loop){
         getGPSLocationAddress();
     }else{
-        messageToUser("GPS Deactivated..");
     }
-    
-
 };
 
 var removeElement = function(el) {
