@@ -47,7 +47,7 @@ var createTimesList = function(data) {
         div.appendChild(outSpan);
         var totalHrs = document.createElement('span');
         totalHrs.classList.add('total-hrs');
-        totalHrs.textContent = getTotalHrs(shift, data[prop].inTimeMS, data[prop].outTimeMS, data[prop].fullDate) + " hrs";
+        totalHrs.textContent = hrs + " hrs";
         div.appendChild(totalHrs);
         removableDiv.appendChild(div);
     }

@@ -41,10 +41,10 @@ var getLocationsDetailData = function() {
     createLocationsDetailView( /*snapshot.val()*/ );
 };
 
-var getTotalHrs = function(shift, t1, t2, date) {
+var calcTotalHrs = function(shift, t1, t2, date) {
     console.log('Called "getTotalHrs()" method');
     t2 = isNaN(t2) ? (new Date()).getTime() : t2;
-    var reduction = (shift === "ww" && (new Date(date).getDay()) === 6) ? 1920000 : 720000;
+    var reduction = (shift === "W" && (new Date(date).getDay()) === 6) ? 1920000 : 720000;
     var msec = t2 - t1 - reduction;
     var totalHrs = Math.floor((msec / (60 * 60 * 1000)) * 10) / 10;
     return (totalHrs < 0) ? 0 : totalHrs;
@@ -55,6 +55,7 @@ var postStartTime = function(newdate) {
     var time = newdate.getTime();
     var inTime = newdate.toLocaleTimeString();
     var date = newdate.toDateString();
+    var hrs = 0;
     var shift = shiftInput.value;
     var msgText = messageInput.value;
     currentSessionKey = times.push().key = time;
@@ -66,6 +67,7 @@ var postStartTime = function(newdate) {
         outTimeMS: "-",
         date: date,
         shift: shift,
+        hrs: 0,
         fullDate: newdate,
         comment: msgText
     };
@@ -77,6 +79,7 @@ var postStartTime = function(newdate) {
         outTimeMS: "-",
         date: newdate,
         shift: shift,
+        hrs: hrs,
         comment: msgText,
         gps: gpsOn
     };
@@ -96,12 +99,17 @@ var postStartTime = function(newdate) {
 var postFinishTime = function(date) {
     console.log('Called "postFinishTime()" method');
     var msgText = messageInput.value;
+    var shift = shiftInput.value;
     var outTime = outTimeInput.value = date.toLocaleTimeString();
     var time = date.getTime();
+    var inDate = new Date(dateInput.value + " " + inTimeInput.value);
+    var inTimeMS = inDate.getTime();
+    var hrs = calcTotalHrs(shift, inTimeMS, time, inDate);
 
     var lastState = {
         outTime: outTime,
         outTimeMS: time,
+        hrs: hrs
     };
 
     var updates = {};
@@ -109,6 +117,7 @@ var postFinishTime = function(date) {
     updates['/times/' + currentSessionKey + "/outTime"] = outTime;
     updates['/times/' + currentSessionKey + "/outTimeMS"] = time;
     updates['/times/' + currentSessionKey + "/comment"] = msgText;
+    updates['/times/' + currentSessionKey + "/hrs"] = hrs;
 
     // Also updating AppData with current data and current state
     updates['AppData/app_state/tracking'] = false;
