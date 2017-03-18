@@ -25,6 +25,7 @@ var createTimesList = function(data) {
         var inTime = data[prop].inTime;
         var outTime = data[prop].outTime;
         var shift = data[prop].shift;
+        var hrs = data[prop].hrs;
 
         var div = document.createElement('div');
         div.classList.add("times-list-item");
